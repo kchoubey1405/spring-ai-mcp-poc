@@ -1,0 +1,89 @@
+
+
+ProcessId       : 30512
+ParentProcessId : 5752
+CommandLine     : c:\Users\SESA720729\.vscode\extensions\redhat.java-1.55.0-win
+                  32-x64\jre\21.0.11-win32-x86_64\bin\java.exe 
+                  -Dspring.config.location=classpath:/application.properties 
+                  -Djdk.util.zip.disableZip64ExtraFieldValidation=true 
+                  -Dspring.main.web-application-type=NONE -Xmx1024m 
+                  -Dsts.lsp.client=vscode -Dlogging.level.root=error 
+                  -Xlog:jni+resolve=off -jar c:\Users\SESA720729\.vscode\extens
+                  ions\vmware.vscode-spring-boot-2.3.0\language-server\spring-b
+                  oot-language-server-2.3.0-SNAPSHOT-exec.jar
+
+ProcessId       : 4884
+ParentProcessId : 19440
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-17503238664632479643.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+ProcessId       : 8496
+ParentProcessId : 19732
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-14934035441402506797.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+ProcessId       : 10204
+ParentProcessId : 8344
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-8014936631084393957.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+ProcessId       : 18776
+ParentProcessId : 26664
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-17119061540618712254.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication 
+                  --spring.ai.mcp.client.type=ASYNC
+
+ProcessId       : 21736
+ParentProcessId : 26052
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-862771537186469822.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+ProcessId       : 29616
+ParentProcessId : 26548
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-14136239918975263597.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+ProcessId       : 24048
+ParentProcessId : 26724
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe"             
+                  -classpath "C:\Users\SESA720729\Downloads\apache-maven-3.9.2\
+                  boot\plexus-classworlds-2.7.0.jar"   "-Dclassworlds.conf=C:\U
+                  sers\SESA720729\Downloads\apache-maven-3.9.2\bin\m2.conf"   "
+                  -Dmaven.home=C:\Users\SESA720729\Downloads\apache-maven-3.9.2
+                  "   "-Dlibrary.jansi.path=C:\Users\SESA720729\Downloads\apach
+                  e-maven-3.9.2\lib\jansi-native"   "-Dmaven.multiModuleProject
+                  Directory=C:\Users\SESA720729\OneDrive - Schneider 
+                  Electric\Documents\My project\spring-ai-mcp-poc"   
+                  org.codehaus.plexus.classworlds.launcher.Launcher  
+                  spring-boot:run
+
+ProcessId       : 18960
+ParentProcessId : 24048
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-13562552534590217696.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+
+
+

@@ -1,0 +1,32 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.4)
+
+2026-10-02T21:30:56.378+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.SpringAiMcpPocApplication         : Starting SpringAiMcpPocApplication using Java 17.0.18 with PID 27140 (C:\Users\SESA720729\OneDrive - Schneider Electric\Documents\My project\spring-ai-mcp-poc\target\classes started by SESA720729 in C:\Users\SESA720729\OneDrive - Schneider Electric\Documents\My project\spring-ai-mcp-poc)
+2026-10-02T21:30:56.382+05:30 DEBUG 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.SpringAiMcpPocApplication         : Running with Spring Boot v3.4.4, Spring v6.2.5
+2026-10-02T21:30:56.382+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.SpringAiMcpPocApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-10-02T21:30:59.097+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8089 (http)
+2026-10-02T21:30:59.113+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-02T21:30:59.113+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2026-10-02T21:30:59.208+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-02T21:30:59.208+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2737 ms
+2026-10-02T21:30:59.825+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.service.CopilotSdkService         : Copilot SDK provider is disabled (copilot.sdk.enabled=false)
+2026-10-02T21:30:59.828+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.service.AiOrchestrationService    : Agent skills loaded: [confluence-research, jira-change-to-pr, jira-repo-context, vulnerability-fix, vulnerability-report]
+2026-10-02T21:30:59.838+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.service.ChatSessionService        : Chat session TTL set to 5 minutes
+2026-10-02T21:31:00.564+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-02T21:31:01.353+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.service.AiOrchestrationService    : MCP tools detected at startup: count=18, names=[xray_getVulnerabilityCounts, xray_getVulnerabilityDetails, xray_createReportLink, jfrog_listProjects, jfrog_listImageTags, maven_findSafeVersion, workspace_listFiles, workspace_createBranch, workspace_cloneRepo, workspace_runMaven, workspace_searchText, workspace_readFile, workspace_writeFile, workspace_replaceInFile, workspace_gitDiff, workspace_createPullRequest, workspace_commitAndPush, workspace_gitStatus]
+2026-10-02T21:31:01.417+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8089 (http) with context path '/'
+2026-10-02T21:31:01.448+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.SpringAiMcpPocApplication         : Started SpringAiMcpPocApplication in 5.897 seconds (process running for 6.613)
+CONFLUENCE_URL=https://confluence.se.com
+2026-10-02T21:31:01.511+05:30  INFO 27140 --- [spring-ai-mcp-poc] [           main] c.s.ai.jfrog.VulnerabilityService        : Starting initial vulnerability scan load in the background...
+2026-10-02T21:31:06.781+05:30  INFO 27140 --- [spring-ai-mcp-poc] [   vuln-refresh] c.s.ai.jfrog.ProjectCatalogService       : Project catalog built: 115 images, 23 projects (13 unmapped)
+2026-10-02T21:31:24.344+05:30  INFO 27140 --- [spring-ai-mcp-poc] [   vuln-refresh] c.s.ai.jfrog.VulnerabilityService        : Vulnerability summary ready: 23 projects, 115 modules, 45 scanned, total 9960 issues, took 22 s
+2026-10-02T21:32:04.518+05:30  INFO 27140 --- [spring-ai-mcp-poc] [nio-8089-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-02T21:32:04.518+05:30  INFO 27140 --- [spring-ai-mcp-poc] [nio-8089-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-02T21:32:04.522+05:30  INFO 27140 --- [spring-ai-mcp-poc] [nio-8089-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms

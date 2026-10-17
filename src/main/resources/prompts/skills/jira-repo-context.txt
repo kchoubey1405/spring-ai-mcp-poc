@@ -1,0 +1,63 @@
+SKILL: jira-repo-context  (Jira -> GitHub Enterprise lookup)
+
+WHEN TO USE
+Any request that involves Jira (a ticket key such as CMDM-8449, a ticket list, status, "what is this ticket about", "what is the work for ...") and any request about a repository, branch, commit or pull request.
+Rule: Jira answers are never Jira-only. After reading Jira, look up the matching work in the organisation Git repositories and report both.
+
+GITHUB ENTERPRISE FACTS
+- Server: https://github.schneider-electric.com  (GitHub Enterprise Server, NOT github.com)
+- Organisation / owner of every integration repository: ifw-microservices (use owner: ifw-microservices unless the user gives another owner)
+- Git tools are named spring_ai_mcp_client_git_mcp_server_<tool>; copy the exact full name from "Available tools".
+- Branch convention: feature/<JIRA-KEY>   (examples seen: feature/CMDM-8449, feature/INTSOL-61375)
+- PR title convention: "<JIRA-KEY>: <short summary>"   (examples: "CMDM-8449: EMH - Phone Validation V2 API creation")
+- PRs target the repository's default branch (see catalog). Most integration repos use develop; do not assume - check.
+
+STEP A - GET THE JIRA DATA
+- One ticket: use the pre-fetched issue if it is in the prompt, otherwise jira_getIssue(issueKey: KEY).
+  Read: summary, description, issue type, status, assignee, components, labels, fix versions, linked issues, comments (jira_getIssueComments) when the description is thin.
+- Many tickets: jira_searchIssues(jql: ..., startAt: 0, maxResults: 25) using the Jira rules of the system prompt.
+  Paging: the next page is the SAME jql with startAt 25, 50, ... (never OFFSET in the JQL - JQL has no OFFSET). The result has "total":
+  say "showing 1-25 of <total>" and offer "next 25". The platform answers "next 25" / "page 3" itself from the last search of the session.
+
+STEP B - FIND THE REPOSITORY (stop at the first confident answer)
+1. The user named a repository or owner/repo -> use it.
+2. Existing work for the ticket: search_pull_requests(query: "<KEY> org:ifw-microservices")  (covers open and closed PRs, also matches branch names).
+   The repository and branch of those PRs is the answer. If a feature/<KEY> branch already exists, reuse it - never create a duplicate.
+3. Jira text: summary, description, components and labels name a system, connector or repo -> match against the catalog below.
+   Hints seen in PR history (hints only, verify): CMDM-* -> mdm-integration (also emh-infra); INTSOL-* -> crm-integration and unifieddatalayer-*; IFW-* -> unifieddatalayer-*, common-util.
+4. search_repositories(query: "org:ifw-microservices <keyword> in:name", minimal_output: false)  - result items include default_branch.
+5. search_code(query: "<class|topic|field|connector name> org:ifw-microservices")  when the ticket names code-level things.
+If two or more repositories remain plausible: list them with the reason and ask the user to pick. Never guess when a change will be written.
+
+STEP C - COLLECT THE GIT CONTEXT (read-only)
+For the identified repository:
+- search_pull_requests(query: "<KEY> repo:ifw-microservices/<repo>")  -> PR number, state, branch, author, link
+- pull_request_read(method: "get", owner, repo, pullNumber)  and  method: "get_files"  for the files a PR changed
+- list_commits(owner, repo, sha: "<branch>", perPage: 10)  for recent activity on the branch
+- get_repository_tree(owner, repo, recursive: true, path_filter: "<module>/")  to see the module layout (many repos are multi-module Maven projects)
+- get_file_contents(owner, repo, path: "<README.md|pom.xml|path>")  to read code or docs
+Do not read the whole repository: read only what the question needs.
+
+STEP D - ANSWER
+Report in this order, as short bullets or a table:
+1. Jira: key (link https://jira.se.com/browse/KEY), summary, status, assignee, type
+2. Repository: ifw-microservices/<repo> (link https://github.schneider-electric.com/ifw-microservices/<repo>), default branch
+3. Git state: branches and PRs for this key (number, title, state, link) or "no branch/PR found"
+4. Relevant files/modules, when asked or when they help
+5. Next step you can take (e.g. "I can implement this and raise a PR")
+For a LIST of tickets: do the Git lookup only for the 5 most relevant tickets (batch up to 6 calls per step), say which ones were checked, and offer the rest on request.
+
+REPOSITORY CATALOG (snapshot 2026-10-02, org ifw-microservices, default branch in brackets - verify with search_repositories if unsure)
+[develop] mdm-integration, crm-integration, plm-integration, prm-integration, alm-integration, clam-integration, qmerit-integration,
+          titan-integration, marketo-integration, securepower-integration, shop.se-integration, emh-f2b-integration, EMH-BFO-CSOD-Integration,
+          date-integration, bfo-generic-enrichments, virtual-stock-integration, spring-jwt, curlcommand
+[master]  unifieddatalayer-productdata, unifieddatalayer-customerdata, unifieddatalayer-salesinvoicedata, common-util, emh-infra, emh-subscription,
+          emh-client-demo, kafka-connect-ifw, kafkatopics, kafka-rest-plugins, gdh-dataobjects, manifests-ifw-app-dev, mdm-integration-manifests,
+          intelds-datamodel-generator-maven-plugin, dam-integration, supplyon-processor, gm-integration, salesorder-integration
+[main]    vistex-integration, BOB_Master-Data-Integration, bFS-Qmerit-Integration, kafka-confluent-rest-plugins, aws-ei-infra, jfrog-automation, ci-central,
+          GRAFANA_dashboard, Grafana_Dashboard_V1, keepass-automation, date-integration-with-GitAction, test-git-actions, GitHub_POC
+
+RULES
+- Use only the Git MCP tools (TOOL_CALL). No shell, no git/gh CLI, no local files.
+- Read-only in this skill. Writing code is only allowed through the skill "jira-change-to-pr".
+- Report exact tool errors briefly (for example 404 repository not found, 401 token problem) and the next best action.

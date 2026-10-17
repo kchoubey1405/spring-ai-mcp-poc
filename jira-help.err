@@ -1,0 +1,11 @@
+file:///C:/Users/SESA720729/AppData/Local/npm-cache/_npx/7f85a9c2621a1430/node_modules/@atlassian-dc-mcp/jira/build/index.js:10
+    throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
+          ^
+
+Error: Missing required environment variables: JIRA_HOST or JIRA_API_BASE_PATH
+    at file:///C:/Users/SESA720729/AppData/Local/npm-cache/_npx/7f85a9c2621a1430/node_modules/@atlassian-dc-mcp/jira/build/index.js:10:11
+    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:661:26)
+    at async file:///C:/Users/SESA720729/AppData/Local/npm-cache/_npx/7f85a9c2621a1430/node_modules/@atlassian-dc-mcp/jira/bin/run.js:6:3
+
+Node.js v24.14.0

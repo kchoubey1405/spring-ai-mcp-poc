@@ -1,0 +1,9 @@
+{
+    "response":  "Agent mode MCP execution error: I/O error on POST request for \"https://models.inference.ai.azure.com/v1/chat/completions\": null",
+    "sessionId":  "fe4fde8b-75f2-4fbd-a2bc-eace2614cb5e",
+    "provider":  "springai",
+    "model":  "gpt-5",
+    "toolsUsed":  null,
+    "toolResults":  null,
+    "timestamp":  "2026-08-31T14:07:23.438106500Z"
+}

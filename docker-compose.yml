@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # ============================================================
+  # Git MCP Server (GitHub Enterprise operations)
+  # Uses: @modelcontextprotocol/server-github (npm package)
+  # ============================================================
+  git-mcp-server:
+    image: node:20-slim
+    ports:
+      - "3001:3001"
+    environment:
+      - GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_API_URL=https://github.schneider-electric.com/api/v3
+    command: npx -y @modelcontextprotocol/server-github --transport sse --port 3001
+    restart: unless-stopped
+
+  # ============================================================
+  # JFrog MCP Server (Artifact management)
+  # Uses: @jfrog/mcp-jfrog (npm package)
+  # ============================================================
+  # jfrog-mcp-server:
+  #   image: node:20-slim
+  #   ports:
+  #     - "3002:3002"
+  #   environment:
+  #     - JFROG_URL=${JFROG_URL}
+  #     - JFROG_ACCESS_TOKEN=${JFROG_ACCESS_TOKEN}
+  #   command: npx -y @jfrog/mcp-server --transport sse --port 3002
+  #   restart: unless-stopped
+
+  # ============================================================
+  # Jira MCP Server (Issue tracking)
+  # Uses: @modelcontextprotocol/server-atlassian (npm package)
+  # ============================================================
+  jira-mcp-server:
+    image: node:20-slim
+    ports:
+      - "3003:3003"
+    environment:
+      - JIRA_HOST=${JIRA_URL}
+      - JIRA_EMAIL=${JIRA_EMAIL}
+      - JIRA_API_TOKEN=${JIRA_API_TOKEN}
+    command: npx -y @atlassian-dc-mcp/jira --transport sse --port 3003
+    restart: unless-stopped
+
+  # ============================================================
+  # Confluence MCP Server (Documentation/Wiki)
+  # Uses same Atlassian MCP server pointed at Confluence
+  # ============================================================
+  confluence-mcp-server:
+    image: node:20-slim
+    ports:
+      - "3004:3004"
+    environment:
+      - ATLASSIAN_SITE_URL=${CONFLUENCE_URL}
+      - ATLASSIAN_USER_EMAIL=${CONFLUENCE_EMAIL}
+      - ATLASSIAN_API_TOKEN=${CONFLUENCE_API_TOKEN}
+    command: npx -y @modelcontextprotocol/server-atlassian --transport sse --port 3004
+    restart: unless-stopped
+
+  # ============================================================
+  # ServiceNow MCP Server (ITSM) - DISABLED (requires admin service account)
+  # Uncomment when you have ServiceNow credentials
+  # ============================================================
+  # servicenow-mcp-server:
+  #   image: node:20-slim
+  #   ports:
+  #     - "3005:3005"
+  #   environment:
+  #     - SERVICENOW_INSTANCE_URL=${SERVICENOW_URL}
+  #     - SERVICENOW_USERNAME=${SERVICENOW_USERNAME}
+  #     - SERVICENOW_PASSWORD=${SERVICENOW_PASSWORD}
+  #   command: npx -y @servicenow/mcp-server --transport sse --port 3005
+  #   restart: unless-stopped

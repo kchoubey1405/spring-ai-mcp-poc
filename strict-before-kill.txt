@@ -1,0 +1,20 @@
+
+
+ProcessId       : 24048
+ParentProcessId : 26724
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe"             
+                  -classpath "C:\Users\SESA720729\Downloads\apache-maven-3.9.2\
+                  boot\plexus-classworlds-2.7.0.jar"   "-Dclassworlds.conf=C:\U
+                  sers\SESA720729\Downloads\apache-maven-3.9.2\bin\m2.conf"   "
+                  -Dmaven.home=C:\Users\SESA720729\Downloads\apache-maven-3.9.2
+                  "   "-Dlibrary.jansi.path=C:\Users\SESA720729\Downloads\apach
+                  e-maven-3.9.2\lib\jansi-native"   "-Dmaven.multiModuleProject
+                  Directory=C:\Users\SESA720729\OneDrive - Schneider 
+                  Electric\Documents\My project\spring-ai-mcp-poc"   
+                  org.codehaus.plexus.classworlds.launcher.Launcher  
+                  spring-boot:run
+
+
+
+

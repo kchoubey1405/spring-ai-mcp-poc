@@ -1,0 +1,1959 @@
+﻿{
+    "expand":  "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id":  "8011995",
+    "self":  "https://jira.se.com/rest/api/2/issue/8011995",
+    "key":  "INTSOL-60499",
+    "fields":  {
+                   "customfield_23700":  null,
+                   "customfield_23701":  null,
+                   "customfield_22850":  null,
+                   "customfield_23702":  null,
+                   "customfield_17265":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/37203",
+                                                 "value":  "N/A",
+                                                 "id":  "37203",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_17269":  null,
+                   "customfield_17268":  null,
+                   "resolution":  null,
+                   "customfield_10863":  null,
+                   "customfield_12802":  null,
+                   "customfield_30001":  null,
+                   "customfield_12805":  null,
+                   "customfield_17252":  null,
+                   "lastViewed":  null,
+                   "customfield_17258":  null,
+                   "customfield_10860":  null,
+                   "customfield_29022":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/90058",
+                                             "value":  "Kafka EMH",
+                                             "id":  "90058",
+                                             "disabled":  false
+                                         },
+                   "customfield_29025":  null,
+                   "aggregatetimeoriginalestimate":  null,
+                   "customfield_22838":  [
+                                             "None"
+                                         ],
+                   "customfield_44406":  null,
+                   "customfield_44407":  null,
+                   "issuelinks":  [
+
+                                  ],
+                   "customfield_22835":  "None",
+                   "customfield_44402":  null,
+                   "customfield_44404":  null,
+                   "customfield_20894":  "*+\u003cAn elevator pitch (value statement) that describes the epic in a clear and concise way.\u003e+*\r\n*+For \u003ccustomers\u003e+*\r\n*+who \u003cdo something\u003e+*\r\n*+the \u003csolution\u003e+*\r\n*+is a \u003csomething – the ‘how’\u003e+*\r\n*+that \u003cprovides this value\u003e+*\r\n*+unlike \u003ccompetitor, current solution or non-existing solution\u003e*+\r\n*+our solution \u003cdoes something better — the ‘why’\u003e+*",
+                   "customfield_31104":  null,
+                   "customfield_10850":  null,
+                   "customfield_10600":  null,
+                   "customfield_10843":  null,
+                   "customfield_10848":  null,
+                   "customfield_16141":  null,
+                   "subtasks":  [
+
+                                ],
+                   "customfield_16149":  null,
+                   "customfield_16148":  null,
+                   "customfield_16147":  null,
+                   "customfield_16146":  null,
+                   "customfield_37900":  null,
+                   "customfield_33300":  null,
+                   "customfield_10834":  null,
+                   "customfield_10835":  "  ",
+                   "customfield_21729":  "||Name||SESA No.||Department||\r\n|user1|SESA1|Department1|\r\n",
+                   "customfield_10839":  null,
+                   "customfield_21723":  null,
+                   "customfield_21722":  null,
+                   "customfield_23500":  null,
+                   "customfield_21721":  0.0,
+                   "customfield_21720":  0.0,
+                   "issuetype":  {
+                                     "self":  "https://jira.se.com/rest/api/2/issuetype/10001",
+                                     "id":  "10001",
+                                     "description":  "User or technical/spike story (scenario)",
+                                     "iconUrl":  "https://jira.se.com/secure/viewavatar?size=xsmall\u0026avatarId=10315\u0026avatarType=issuetype",
+                                     "name":  "Story",
+                                     "subtask":  false,
+                                     "avatarId":  10315
+                                 },
+                   "customfield_18311":  null,
+                   "customfield_18312":  null,
+                   "customfield_16134":  null,
+                   "customfield_23508":  null,
+                   "customfield_37909":  null,
+                   "customfield_37908":  null,
+                   "customfield_37907":  null,
+                   "customfield_37906":  null,
+                   "customfield_37905":  null,
+                   "customfield_37904":  null,
+                   "customfield_19644":  null,
+                   "customfield_37903":  null,
+                   "customfield_37902":  null,
+                   "customfield_18315":  null,
+                   "customfield_37901":  null,
+                   "customfield_37911":  null,
+                   "customfield_10820":  null,
+                   "customfield_37910":  null,
+                   "customfield_10821":  null,
+                   "customfield_21716":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/77112",
+                                             "value":  "KO",
+                                             "id":  "77112",
+                                             "disabled":  false
+                                         },
+                   "customfield_23510":  null,
+                   "customfield_23514":  null,
+                   "customfield_17212":  null,
+                   "customfield_37919":  null,
+                   "customfield_37918":  null,
+                   "customfield_37917":  null,
+                   "customfield_37916":  null,
+                   "customfield_37915":  null,
+                   "customfield_37914":  null,
+                   "customfield_37913":  null,
+                   "customfield_34403":  null,
+                   "customfield_37912":  null,
+                   "customfield_19636":  null,
+                   "customfield_18305":  null,
+                   "customfield_37922":  null,
+                   "customfield_37921":  null,
+                   "customfield_37920":  null,
+                   "customfield_11902":  null,
+                   "customfield_11904":  null,
+                   "customfield_11903":  [
+
+                                         ],
+                   "customfield_21706":  null,
+                   "customfield_11906":  null,
+                   "customfield_11905":  null,
+                   "customfield_10818":  "   ",
+                   "customfield_11907":  null,
+                   "customfield_25700":  null,
+                   "customfield_23525":  null,
+                   "customfield_23528":  null,
+                   "customfield_16599":  null,
+                   "customfield_37926":  null,
+                   "customfield_37925":  null,
+                   "customfield_37924":  null,
+                   "timetracking":  {
+
+                                    },
+                   "customfield_37923":  null,
+                   "customfield_36602":  null,
+                   "customfield_36601":  null,
+                   "customfield_36600":  null,
+                   "customfield_10800":  null,
+                   "customfield_10801":  null,
+                   "customfield_10802":  null,
+                   "customfield_10803":  null,
+                   "customfield_23532":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/50207",
+                                             "value":  "In Work",
+                                             "id":  "50207",
+                                             "disabled":  false
+                                         },
+                   "customfield_23533":  null,
+                   "customfield_23534":  null,
+                   "customfield_26800":  null,
+                   "customfield_23535":  null,
+                   "customfield_16584":  null,
+                   "customfield_15010":  null,
+                   "customfield_17671":  null,
+                   "customfield_32007":  null,
+                   "customfield_36603":  null,
+                   "customfield_33103":  null,
+                   "environment":  null,
+                   "customfield_23302":  null,
+                   "customfield_12410":  null,
+                   "customfield_33900":  null,
+                   "customfield_12413":  null,
+                   "customfield_12412":  null,
+                   "customfield_13979":  null,
+                   "customfield_12406":  null,
+                   "customfield_14823":  null,
+                   "customfield_11316":  null,
+                   "customfield_12405":  null,
+                   "customfield_12408":  null,
+                   "customfield_11318":  null,
+                   "customfield_12407":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13707",
+                                             "value":  "None",
+                                             "id":  "13707",
+                                             "disabled":  false
+                                         },
+                   "customfield_29414":  null,
+                   "customfield_29413":  "Under Investigation",
+                   "customfield_29418":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/73350",
+                                             "value":  "Functional",
+                                             "id":  "73350",
+                                             "disabled":  false
+                                         },
+                   "customfield_17096":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/36229",
+                                             "value":  "Not Assigned",
+                                             "id":  "36229",
+                                             "disabled":  false
+                                         },
+                   "customfield_13973":  null,
+                   "customfield_13724":  null,
+                   "customfield_11304":  null,
+                   "customfield_13965":  null,
+                   "timeestimate":  null,
+                   "customfield_29426":  null,
+                   "customfield_40200":  null,
+                   "customfield_29424":  null,
+                   "customfield_17094":  null,
+                   "customfield_17086":  null,
+                   "customfield_17085":  null,
+                   "customfield_18179":  null,
+                   "customfield_17084":  "2026-09-14",
+                   "customfield_39237":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/109524",
+                                             "value":  "ETP",
+                                             "id":  "109524",
+                                             "disabled":  false
+                                         },
+                   "customfield_10203":  null,
+                   "customfield_10204":  null,
+                   "customfield_14806":  null,
+                   "customfield_28106":  null,
+                   "customfield_41302":  null,
+                   "customfield_17082":  null,
+                   "customfield_17081":  null,
+                   "customfield_28107":  null,
+                   "customfield_17080":  null,
+                   "customfield_17076":  915.0,
+                   "customfield_17073":  null,
+                   "customfield_17079":  915.0,
+                   "customfield_17078":  null,
+                   "customfield_17077":  null,
+                   "customfield_10200":  null,
+                   "customfield_10201":  null,
+                   "customfield_10202":  null,
+                   "customfield_32601":  null,
+                   "customfield_28112":  null,
+                   "customfield_13705":  null,
+                   "customfield_28113":  null,
+                   "customfield_29205":  null,
+                   "customfield_28116":  null,
+                   "customfield_28114":  null,
+                   "customfield_29204":  null,
+                   "customfield_28115":  null,
+                   "customfield_17071":  null,
+                   "customfield_18158":  null,
+                   "customfield_40000":  null,
+                   "customfield_22890":  null,
+                   "customfield_33707":  null,
+                   "customfield_33708":  null,
+                   "customfield_33705":  null,
+                   "aggregatetimespent":  null,
+                   "customfield_11512":  null,
+                   "customfield_12603":  null,
+                   "customfield_29217":  null,
+                   "workratio":  -1,
+                   "customfield_19480":  null,
+                   "customfield_17061":  null,
+                   "customfield_17060":  null,
+                   "customfield_22888":  null,
+                   "customfield_29219":  null,
+                   "customfield_17058":  null,
+                   "customfield_17059":  null,
+                   "customfield_34804":  null,
+                   "customfield_29220":  null,
+                   "customfield_31300":  null,
+                   "customfield_29223":  null,
+                   "customfield_11508":  null,
+                   "customfield_13928":  null,
+                   "customfield_22879":  null,
+                   "customfield_17040":  null,
+                   "customfield_17282":  null,
+                   "customfield_42200":  null,
+                   "customfield_35902":  null,
+                   "customfield_19468":  null,
+                   "customfield_35901":  null,
+                   "customfield_31301":  null,
+                   "customfield_13911":  null,
+                   "customfield_29233":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/73312",
+                                             "value":  "N/A",
+                                             "id":  "73312",
+                                             "disabled":  false
+                                         },
+                   "customfield_41105":  null,
+                   "customfield_17280":  null,
+                   "customfield_41108":  null,
+                   "customfield_41107":  null,
+                   "customfield_41106":  null,
+                   "customfield_20203":  null,
+                   "customfield_19213":  null,
+                   "customfield_17271":  null,
+                   "customfield_17277":  "60633",
+                   "customfield_17033":  null,
+                   "customfield_12813":  "0",
+                   "customfield_12817":  "Insert the information here",
+                   "customfield_13905":  null,
+                   "customfield_17270":  null,
+                   "customfield_12372":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/14517",
+                                             "value":  "Not applicable",
+                                             "id":  "14517",
+                                             "disabled":  false
+                                         },
+                   "customfield_15401":  null,
+                   "customfield_12376":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/14579",
+                                             "value":  "Yes",
+                                             "id":  "14579",
+                                             "disabled":  false
+                                         },
+                   "customfield_12134":  null,
+                   "customfield_12138":  null,
+                   "customfield_18904":  null,
+                   "customfield_25454":  null,
+                   "customfield_12361":  null,
+                   "customfield_18900":  null,
+                   "customfield_18901":  null,
+                   "customfield_12366":  null,
+                   "customfield_14547":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/26350",
+                                             "value":  "No",
+                                             "id":  "26350",
+                                             "disabled":  false
+                                         },
+                   "labels":  [
+
+                              ],
+                   "customfield_25462":  null,
+                   "customfield_12350":  null,
+                   "customfield_12355":  null,
+                   "customfield_25231":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/53729",
+                                             "value":  "Open",
+                                             "id":  "53729",
+                                             "disabled":  false
+                                         },
+                   "customfield_25232":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/53732",
+                                             "value":  "Open",
+                                             "id":  "53732",
+                                             "disabled":  false
+                                         },
+                   "customfield_25233":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/53735",
+                                             "value":  "Not Applicable",
+                                             "id":  "53735",
+                                             "disabled":  false
+                                         },
+                   "customfield_25234":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/53739",
+                                             "value":  "Open",
+                                             "id":  "53739",
+                                             "disabled":  false
+                                         },
+                   "customfield_25235":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/53742",
+                                             "value":  "Open",
+                                             "id":  "53742",
+                                             "disabled":  false
+                                         },
+                   "customfield_25236":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/53745",
+                                             "value":  "Open",
+                                             "id":  "53745",
+                                             "disabled":  false
+                                         },
+                   "customfield_25237":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/53748",
+                                             "value":  "Open",
+                                             "id":  "53748",
+                                             "disabled":  false
+                                         },
+                   "customfield_12340":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/90048",
+                                             "value":  "Global",
+                                             "id":  "90048",
+                                             "disabled":  false
+                                         },
+                   "reporter":  {
+                                    "self":  "https://jira.se.com/rest/api/2/user?username=SESA756752",
+                                    "name":  "SESA756752",
+                                    "key":  "JIRAUSER74844",
+                                    "emailAddress":  "daria.tikhomirova@se.com",
+                                    "avatarUrls":  {
+                                                       "48x48":  "https://jira.se.com/secure/useravatar?avatarId=10341",
+                                                       "24x24":  "https://jira.se.com/secure/useravatar?size=small\u0026avatarId=10341",
+                                                       "16x16":  "https://jira.se.com/secure/useravatar?size=xsmall\u0026avatarId=10341",
+                                                       "32x32":  "https://jira.se.com/secure/useravatar?size=medium\u0026avatarId=10341"
+                                                   },
+                                    "displayName":  "Daria Tikhomirova",
+                                    "active":  true,
+                                    "timeZone":  "UTC"
+                                },
+                   "customfield_12344":  null,
+                   "customfield_14759":  "\u0026amp;quot;issue prototype URL\u0026amp;quot;",
+                   "customfield_12337":  null,
+                   "customfield_14758":  "\u0026amp;quot;enter evidence URL\u0026amp;quot;",
+                   "customfield_25001":  null,
+                   "customfield_25002":  null,
+                   "archivedby":  null,
+                   "customfield_29606":  null,
+                   "customfield_29603":  null,
+                   "customfield_23221":  null,
+                   "customfield_11001":  null,
+                   "customfield_12333":  null,
+                   "customfield_14754":  null,
+                   "customfield_12329":  null,
+                   "customfield_12328":  null,
+                   "customfield_29617":  null,
+                   "customfield_23217":  null,
+                   "customfield_21278":  null,
+                   "watches":  {
+                                   "self":  "https://jira.se.com/rest/api/2/issue/INTSOL-60499/watchers",
+                                   "watchCount":  4,
+                                   "isWatching":  true
+                               },
+                   "customfield_21277":  null,
+                   "customfield_21276":  null,
+                   "customfield_21275":  null,
+                   "customfield_21274":  null,
+                   "customfield_12561":  null,
+                   "customfield_12560":  null,
+                   "customfield_13894":  "2026-09-09",
+                   "customfield_12321":  null,
+                   "customfield_13410":  "TO BE DEFINE",
+                   "customfield_12320":  null,
+                   "customfield_15831":  null,
+                   "customfield_13898":  null,
+                   "customfield_16915":  "Issue(s) detail(s):\r\n\r\nImpact:\r\n\r\nRoot Cause(s):\r\n\r\nAction Item(s) with hyperlinks:\r\n",
+                   "customfield_13888":  null,
+                   "customfield_12318":  null,
+                   "customfield_37006":  null,
+                   "customfield_12319":  null,
+                   "updated":  "2026-09-09T08:50:33.440+0000",
+                   "customfield_23205":  null,
+                   "customfield_38101":  null,
+                   "timeoriginalestimate":  null,
+                   "description":  "SCTASK4826582 / REQ4058086\nDemand Title/Change request Title - Hello,\r\n\r\nFYI this topic has been discussed with Kamlesh Kumar Choubey \u003ckamleshkumar.choubey@se.com\u003e and Morgane Couliou \u003cmorgane.couliou@non.se.com\u003e on March 23 2026. If you have any question, please don\u0027t hesitate to ask me.\r\n\r\nFor reminder: Publication chain for 3D \u0026 360 assets publication:\r\nOffer DAM -\u003e Apigee -\u003e EMH -\u003e 3D Platform API.\r\n\r\nBusiness justification:\r\nCurrently, DCES (3D model API) receives 3D \u0026 360 assets from DAM and stores them indefinitely. \r\nEven when they are set obsolete in DAM, \u0026 a deletion message is sent, it’s not deleted from DCES.\r\nThis is because currently, EMH is only sending events of type \"publish\" for 3D \u0026 360 assets, to 3D Platform API.\r\n\r\nStatement of need:\r\nWe would like EMH to send \"delete\" events as well, once they receive it from DAM.\r\nThis will ensure that once the asset is set Obsolete in Offer DAM, it\u0027s removed from 3D Platform API.\r\nNote: only 3D \u0026 360 assets are concerned. Other asset types are not concerned.\r\n\r\nDocumentation:\r\nThe documentation on 3D Model API is provided by Morgane: https://confluence.se.com/x/i4wCJQ\r\n \r\nGoal: once DAM sends a message where \"docType\"=\"3D Model\" OR “360 set of image\", and “action” = “DELETE”, it should trigger deletion 3D Platform API like below\r\n(Example of deletion request of an asset with \"Reference\" = \"mydocref\" for SQE environment)\r\n \r\ncurl -X \u0027DELETE\u0027 \\\r\n  \u0027https://visuals-contrib-sqe.schneider-electric.com/api/v1/3d/mydocref\u0027 \\\r\n  -H \u0027accept: application/json\u0027\r\n \r\ncurl -X \u0027DELETE\u0027 \\\r\n  \u0027https://visuals-contrib-sqe.schneider-electric.com/api/v1/360/mydocref\u0027 \\\r\n  -H \u0027accept: application/json\u0027\r\n\r\nThanks \u0026 Regards\r\nAnastasia, \n Project Planning - , \n Practice / Capability - NA, \n Target Application STAC id - , \n Source Application STAC id - , \n volume of data - , \n Frequency - , \n Play book pattern - , \n EDI OG Flow - \n\n",
+                   "customfield_38103":  null,
+                   "customfield_38104":  null,
+                   "customfield_12551":  null,
+                   "customfield_13401":  null,
+                   "customfield_38106":  null,
+                   "customfield_12311":  "anastasia.mishakova@se.com",
+                   "customfield_38107":  null,
+                   "customfield_38108":  null,
+                   "customfield_12555":  null,
+                   "customfield_12313":  null,
+                   "customfield_38109":  null,
+                   "customfield_12305":  0.0,
+                   "customfield_13878":  null,
+                   "customfield_12307":  0.0,
+                   "customfield_16909":  null,
+                   "customfield_12309":  null,
+                   "customfield_21016":  "Envisioned Go to market and deployment strategy\r\n\r\nImpact on sales, deployment, distribution, …",
+                   "customfield_21014":  "Dependencies with Platforms, Products, SW, Services, …\r\n\r\nRequired Technical Enablers (link with Architectural Runway)\r\n\r\nWhat are the increments, sequence of developments ?\r\n\r\nHow the customers will be involved in the development process ?\r\n\r\nAny out-sourcing, partnership or co-development opportunities\r\n\r\nExecution risks",
+                   "customfield_21013":  "Impact on EcoStruXure KPIs (Digital Flywheel) – L1, L2, L3\r\n\r\nOther indicators : market share, cost savings, competitive advantage, …\r\n\r\nCustomer satisfaction / customer experience challenges",
+                   "customfield_21012":  null,
+                   "customfield_21011":  null,
+                   "customfield_21010":  null,
+                   "customfield_32802":  null,
+                   "customfield_39202":  100.0,
+                   "customfield_32801":  null,
+                   "customfield_39203":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/109269",
+                                             "value":  "No",
+                                             "id":  "109269",
+                                             "disabled":  false
+                                         },
+                   "customfield_39204":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/109271",
+                                             "value":  "No",
+                                             "id":  "109271",
+                                             "disabled":  false
+                                         },
+                   "customfield_14721":  null,
+                   "customfield_11204":  null,
+                   "customfield_14713":  [
+                                             "Canada_en",
+                                             "Canada_fr",
+                                             "Denmark",
+                                             "Egypt",
+                                             "FSA",
+                                             "France",
+                                             "Germany",
+                                             "India",
+                                             "Italy",
+                                             "Korea",
+                                             "Mexico",
+                                             "Netherlands",
+                                             "New_Zealand",
+                                             "Poland",
+                                             "Singapore",
+                                             "South_Africa",
+                                             "Turkey",
+                                             "UK",
+                                             "USA",
+                                             "Vietnam_en"
+                                         ],
+                   "customfield_13868":  null,
+                   "customfield_14714":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/27370",
+                                             "value":  "9",
+                                             "id":  "27370",
+                                             "disabled":  false
+                                         },
+                   "customfield_11209":  "    ",
+                   "customfield_21009":  null,
+                   "customfield_21008":  null,
+                   "customfield_21007":  null,
+                   "customfield_21006":  null,
+                   "customfield_23425":  null,
+                   "customfield_25848":  null,
+                   "customfield_15000":  "\u0026amp;quot;\u0026amp;quot;",
+                   "customfield_23429":  null,
+                   "customfield_15240":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/35407",
+                                             "value":  "No",
+                                             "id":  "35407",
+                                             "disabled":  false
+                                         },
+                   "fixVersions":  [
+                                       {
+                                           "self":  "https://jira.se.com/rest/api/2/version/191251",
+                                           "id":  "191251",
+                                           "name":  "PI26.4",
+                                           "archived":  false,
+                                           "released":  false
+                                       }
+                                   ],
+                   "customfield_15008":  null,
+                   "customfield_15006":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/30088",
+                                                 "value":  "TO BE DEFINED",
+                                                 "id":  "30088",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_36503":  null,
+                   "customfield_36502":  null,
+                   "customfield_24520":  "Anastasiia MISHAKOVA",
+                   "customfield_24521":  null,
+                   "customfield_24522":  null,
+                   "customfield_24524":  null,
+                   "customfield_15235":  null,
+                   "customfield_15236":  "0",
+                   "priority":  {
+                                    "self":  "https://jira.se.com/rest/api/2/priority/10001",
+                                    "iconUrl":  "https://jira.se.com/images/icons/priorities/critical.svg",
+                                    "name":  "Critical",
+                                    "id":  "10001"
+                                },
+                   "customfield_36507":  null,
+                   "customfield_36506":  null,
+                   "customfield_18502":  null,
+                   "customfield_36505":  null,
+                   "customfield_15238":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/30955",
+                                             "value":  "No",
+                                             "id":  "30955",
+                                             "disabled":  false
+                                         },
+                   "customfield_36504":  null,
+                   "customfield_33004":  null,
+                   "customfield_33000":  null,
+                   "customfield_23441":  null,
+                   "customfield_23442":  null,
+                   "customfield_27800":  null,
+                   "customfield_23444":  null,
+                   "customfield_27802":  null,
+                   "customfield_27801":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/60405",
+                                             "value":  "No",
+                                             "id":  "60405",
+                                             "disabled":  false
+                                         },
+                   "customfield_23447":  null,
+                   "customfield_23448":  null,
+                   "customfield_16550":  null,
+                   "customfield_16311":  null,
+                   "customfield_37606":  null,
+                   "customfield_38701":  null,
+                   "customfield_34105":  null,
+                   "customfield_34102":  null,
+                   "customfield_34103":  null,
+                   "customfield_34100":  null,
+                   "customfield_23454":  null,
+                   "customfield_28902":  null,
+                   "customfield_28900":  null,
+                   "customfield_24305":  null,
+                   "customfield_12180":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/36016",
+                                             "value":  "Draft",
+                                             "id":  "36016",
+                                             "disabled":  false
+                                         },
+                   "customfield_13030":  "0",
+                   "customfield_14121":  null,
+                   "customfield_13032":  "0",
+                   "customfield_15213":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/30791",
+                                             "value":  "TBD",
+                                             "id":  "30791",
+                                             "disabled":  false
+                                         },
+                   "customfield_16303":  "*+PreConditions:+*\r\n\r\n*+Test Procedure:+*\r\n\r\n*+Observed Result:+*\r\n\r\n*+Expected Result:+*\r\n\r\n*+Impact:+*\r\n\r\n*+Priority:+*\r\nSeverity =\r\nOcc UC =\r\nOcc DF =\r\nResult =",
+                   "customfield_17633":  null,
+                   "customfield_39800":  null,
+                   "customfield_39801":  null,
+                   "customfield_34106":  null,
+                   "customfield_34115":  null,
+                   "customfield_34116":  null,
+                   "customfield_34113":  null,
+                   "customfield_35200":  null,
+                   "customfield_34112":  null,
+                   "customfield_34110":  null,
+                   "customfield_23462":  null,
+                   "customfield_24318":  null,
+                   "customfield_14593":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/27329",
+                                             "value":  "N",
+                                             "id":  "27329",
+                                             "disabled":  false
+                                         },
+                   "customfield_12176":  null,
+                   "customfield_14597":  "\u0026amp;quot;assess BPO value/blocker\u0026amp;quot;",
+                   "customfield_38960":  null,
+                   "customfield_14598":  "\u0026amp;quot;identify the global process referent\u0026amp;quot;",
+                   "customfield_12177":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/36020",
+                                             "value":  "None Yet",
+                                             "id":  "36020",
+                                             "disabled":  false
+                                         },
+                   "customfield_34117":  null,
+                   "customfield_13028":  null,
+                   "customfield_36304":  null,
+                   "customfield_36302":  null,
+                   "customfield_36301":  null,
+                   "customfield_36300":  null,
+                   "customfield_25897":  null,
+                   "customfield_24325":  null,
+                   "customfield_24327":  null,
+                   "customfield_14582":  null,
+                   "customfield_14583":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/27305",
+                                             "value":  "PSR",
+                                             "id":  "27305",
+                                             "disabled":  false
+                                         },
+                   "customfield_14580":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/35964",
+                                             "value":  "Not defined",
+                                             "id":  "35964",
+                                             "disabled":  false
+                                         },
+                   "created":  "2026-08-12T13:30:43.386+0000",
+                   "customfield_14586":  "2016-01-01",
+                   "customfield_18702":  null,
+                   "customfield_14587":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/27312",
+                                             "value":  "None",
+                                             "id":  "27312",
+                                             "disabled":  false
+                                         },
+                   "customfield_14584":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/27306",
+                                             "value":  "Create User",
+                                             "id":  "27306",
+                                             "disabled":  false
+                                         },
+                   "customfield_14585":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/27310",
+                                             "value":  "Defect",
+                                             "id":  "27310",
+                                             "disabled":  false
+                                         },
+                   "customfield_17616":  null,
+                   "customfield_17858":  null,
+                   "customfield_38976":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/108176",
+                                             "value":  "N/A",
+                                             "id":  "108176",
+                                             "disabled":  false
+                                         },
+                   "customfield_14588":  null,
+                   "customfield_17614":  null,
+                   "customfield_14589":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/27316",
+                                                 "value":  "N/A",
+                                                 "id":  "27316",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_36306":  null,
+                   "customfield_18701":  null,
+                   "customfield_17613":  null,
+                   "customfield_16519":  null,
+                   "customfield_16517":  null,
+                   "customfield_24334":  0.0,
+                   "customfield_24335":  null,
+                   "customfield_25424":  null,
+                   "customfield_24336":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/52141",
+                                             "value":  "1",
+                                             "id":  "52141",
+                                             "disabled":  false
+                                         },
+                   "customfield_27604":  null,
+                   "customfield_23489":  null,
+                   "customfield_27603":  null,
+                   "customfield_25427":  null,
+                   "customfield_14570":  null,
+                   "customfield_14575":  null,
+                   "customfield_14576":  null,
+                   "customfield_14574":  null,
+                   "customfield_14577":  null,
+                   "customfield_17603":  null,
+                   "attachment":  [
+                                      {
+                                          "self":  "https://jira.se.com/rest/api/2/attachment/7035983",
+                                          "id":  "7035983",
+                                          "filename":  "RE_ INTSOL-60499, Implement Deelete Flow to 3D Model API, Estimation Approval Request (2).msg",
+                                          "author":  {
+                                                         "self":  "https://jira.se.com/rest/api/2/user?username=SESA720729",
+                                                         "name":  "SESA720729",
+                                                         "key":  "JIRAUSER60801",
+                                                         "emailAddress":  "kamleshkumar.choubey@se.com",
+                                                         "avatarUrls":  {
+                                                                            "48x48":  "https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=48",
+                                                                            "24x24":  "https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=24",
+                                                                            "16x16":  "https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=16",
+                                                                            "32x32":  "https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=32"
+                                                                        },
+                                                         "displayName":  "Kamlesh Kumar Choubey",
+                                                         "active":  true,
+                                                         "timeZone":  "UTC"
+                                                     },
+                                          "created":  "2026-09-09T08:46:49.909+0000",
+                                          "size":  189952,
+                                          "mimeType":  "application/octet-stream",
+                                          "content":  "https://jira.se.com/secure/attachment/7035983/RE_+INTSOL-60499%2C+Implement+Deelete+Flow+to+3D+Model+API%2C+Estimation+Approval+Request+%282%29.msg"
+                                      }
+                                  ],
+                   "customfield_23491":  null,
+                   "customfield_24340":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/52152",
+                                             "value":  "No",
+                                             "id":  "52152",
+                                             "disabled":  false
+                                         },
+                   "customfield_24341":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/52153",
+                                             "value":  "No",
+                                             "id":  "52153",
+                                             "disabled":  false
+                                         },
+                   "customfield_24105":  null,
+                   "customfield_12381":  null,
+                   "customfield_14560":  null,
+                   "customfield_12380":  "FR0123",
+                   "customfield_12382":  "Jordi De Diego",
+                   "customfield_16501":  "0",
+                   "customfield_16500":  0.0,
+                   "customfield_14569":  null,
+                   "customfield_16503":  null,
+                   "customfield_35004":  null,
+                   "customfield_35002":  null,
+                   "customfield_35000":  null,
+                   "customfield_29800":  null,
+                   "customfield_25202":  null,
+                   "customfield_29803":  null,
+                   "customfield_29801":  null,
+                   "customfield_29802":  null,
+                   "customfield_22973":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48503",
+                                             "value":  "2. Medium",
+                                             "id":  "48503",
+                                             "disabled":  false
+                                         },
+                   "customfield_39172":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/109077",
+                                                 "value":  "NA",
+                                                 "id":  "109077",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_39173":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/109080",
+                                             "value":  "---",
+                                             "id":  "109080",
+                                             "disabled":  false
+                                         },
+                   "customfield_39174":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/109087",
+                                             "value":  "No",
+                                             "id":  "109087",
+                                             "disabled":  false
+                                         },
+                   "customfield_39175":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/109089",
+                                             "value":  "No",
+                                             "id":  "109089",
+                                             "disabled":  false
+                                         },
+                   "customfield_17149":  null,
+                   "customfield_17148":  null,
+                   "customfield_30113":  null,
+                   "customfield_31203":  null,
+                   "customfield_31202":  null,
+                   "customfield_10501":  null,
+                   "customfield_10502":  null,
+                   "customfield_32301":  null,
+                   "customfield_32300":  null,
+                   "customfield_12925":  null,
+                   "customfield_22964":  null,
+                   "customfield_39171":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/109060",
+                                             "value":  "NA",
+                                             "id":  "109060",
+                                             "disabled":  false
+                                         },
+                   "customfield_18223":  null,
+                   "customfield_32303":  null,
+                   "customfield_32302":  null,
+                   "customfield_12914":  null,
+                   "customfield_12915":  null,
+                   "customfield_22956":  null,
+                   "assignee":  {
+                                    "self":  "https://jira.se.com/rest/api/2/user?username=SESA720729",
+                                    "name":  "SESA720729",
+                                    "key":  "JIRAUSER60801",
+                                    "emailAddress":  "kamleshkumar.choubey@se.com",
+                                    "avatarUrls":  {
+                                                       "48x48":  "https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=48",
+                                                       "24x24":  "https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=24",
+                                                       "16x16":  "https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=16",
+                                                       "32x32":  "https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=32"
+                                                   },
+                                    "displayName":  "Kamlesh Kumar Choubey",
+                                    "active":  true,
+                                    "timeZone":  "UTC"
+                                },
+                   "customfield_18211":  null,
+                   "customfield_44302":  null,
+                   "customfield_18217":  null,
+                   "customfield_34500":  null,
+                   "customfield_12901":  null,
+                   "customfield_12900":  null,
+                   "customfield_11811":  null,
+                   "customfield_12902":  null,
+                   "customfield_24703":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/52754",
+                                             "value":  "No",
+                                             "id":  "52754",
+                                             "disabled":  false
+                                         },
+                   "customfield_24704":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/96337",
+                                             "value":  "No",
+                                             "id":  "96337",
+                                             "disabled":  false
+                                         },
+                   "customfield_24705":  null,
+                   "customfield_24706":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/52764",
+                                             "value":  "No",
+                                             "id":  "52764",
+                                             "disabled":  false
+                                         },
+                   "customfield_23617":  null,
+                   "customfield_24707":  0.0,
+                   "customfield_23618":  null,
+                   "customfield_24708":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/52768",
+                                             "value":  "No",
+                                             "id":  "52768",
+                                             "disabled":  false
+                                         },
+                   "customfield_17117":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/95920",
+                                             "value":  "Low - Less than 5 users affected by issue",
+                                             "id":  "95920",
+                                             "disabled":  false
+                                         },
+                   "customfield_24709":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/52770",
+                                             "value":  "No",
+                                             "id":  "52770",
+                                             "disabled":  false
+                                         },
+                   "customfield_19539":  null,
+                   "customfield_19534":  null,
+                   "customfield_34503":  null,
+                   "customfield_19537":  null,
+                   "customfield_22938":  null,
+                   "votes":  {
+                                 "self":  "https://jira.se.com/rest/api/2/issue/INTSOL-60499/votes",
+                                 "votes":  0,
+                                 "hasVoted":  false
+                             },
+                   "worklog":  {
+                                   "startAt":  0,
+                                   "maxResults":  20,
+                                   "total":  0,
+                                   "worklogs":  [
+
+                                                ]
+                               },
+                   "customfield_44303":  null,
+                   "customfield_44304":  null,
+                   "customfield_24710":  0.0,
+                   "customfield_24711":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/52771",
+                                             "value":  "Normal",
+                                             "id":  "52771",
+                                             "disabled":  false
+                                         },
+                   "customfield_17100":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/77103",
+                                                 "value":  "QED2",
+                                                 "id":  "77103",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_19527":  null,
+                   "customfield_17104":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/35708",
+                                             "value":  "OE",
+                                             "id":  "35708",
+                                             "disabled":  false
+                                         },
+                   "customfield_17107":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/35717",
+                                             "value":  "Yes",
+                                             "id":  "35717",
+                                             "disabled":  false
+                                         },
+                   "customfield_10704":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/10611",
+                                             "value":  "No",
+                                             "id":  "10611",
+                                             "disabled":  false
+                                         },
+                   "customfield_22922":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48197",
+                                             "value":  "No",
+                                             "id":  "48197",
+                                             "disabled":  false
+                                         },
+                   "customfield_23632":  null,
+                   "customfield_23637":  null,
+                   "customfield_17333":  null,
+                   "customfield_16000":  null,
+                   "customfield_17335":  "1.Deployment Methodology : https://kns.schneider-electric.com/kns/Methodology\r\n\r\n2. Site Creation Template : https://schneider-electric.box.com/s/cp4fzycd0tn36sufqd968txr01xaecj9\r\n\r\n3. SOH Validation : https://kns.schneider-electric.com/kns/Deployment_Methodology_-_Global_-_Data_Validation_SOH\r\n\r\n4. POH Validation : https://kns.schneider-electric.com/kns/Deployment_Methodology_-_Global_-_Data_Validation_POH/STOH\r\n\r\n5. MD Validation : https://kns.schneider-electric.com/kns/Deployment_Methodology_-_Global_-_Data_Validation_BASIC_MD\r\n\r\n6. Sourcing MD Validation : https://kns.schneider-electric.com/kns/Deployment_Methodology_-_Global_-_Data_Validation_SOURCING_Masterdata\r\n\r\n7. BOM Validation : https://kns.schneider-electric.com/kns/Deployment_Methodology_-_Global_-_Data_Validation_BOM\r\n\r\n8. Multi-node mapping : https://schneider-electric.app.box.com/file/230380023175 Edit Default value",
+                   "customfield_35613":  null,
+                   "customfield_37800":  null,
+                   "customfield_22919":  null,
+                   "customfield_22918":  null,
+                   "customfield_22915":  null,
+                   "customfield_22912":  null,
+                   "customfield_23640":  null,
+                   "customfield_20971":  null,
+                   "customfield_17326":  null,
+                   "customfield_17329":  null,
+                   "customfield_37803":  null,
+                   "customfield_17328":  null,
+                   "customfield_38901":  null,
+                   "customfield_37802":  null,
+                   "customfield_17327":  null,
+                   "customfield_34301":  null,
+                   "customfield_20969":  null,
+                   "customfield_20967":  null,
+                   "customfield_20962":  null,
+                   "customfield_24503":  null,
+                   "customfield_14040":  "Pending",
+                   "customfield_14286":  null,
+                   "customfield_24508":  null,
+                   "customfield_24509":  "0%",
+                   "customfield_17313":  null,
+                   "customfield_18401":  null,
+                   "customfield_38902":  null,
+                   "duedate":  null,
+                   "customfield_31605":  null,
+                   "customfield_13860":  null,
+                   "customfield_31604":  null,
+                   "customfield_14711":  {
+                                             "self":  "https://jira.se.com/rest/api/2/user?username=SESA245780",
+                                             "name":  "SESA245780",
+                                             "key":  "JIRAUSER21383",
+                                             "emailAddress":  "Mohua.Bhattacharjee@se.com",
+                                             "avatarUrls":  {
+                                                                "48x48":  "https://jira.se.com/secure/useravatar?ownerId=JIRAUSER21383\u0026avatarId=18023",
+                                                                "24x24":  "https://jira.se.com/secure/useravatar?size=small\u0026ownerId=JIRAUSER21383\u0026avatarId=18023",
+                                                                "16x16":  "https://jira.se.com/secure/useravatar?size=xsmall\u0026ownerId=JIRAUSER21383\u0026avatarId=18023",
+                                                                "32x32":  "https://jira.se.com/secure/useravatar?size=medium\u0026ownerId=JIRAUSER21383\u0026avatarId=18023"
+                                                            },
+                                             "displayName":  "Mohua Bhattacharjee",
+                                             "active":  true,
+                                             "timeZone":  "UTC"
+                                         },
+                   "customfield_11201":  null,
+                   "customfield_14712":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/28821",
+                                             "value":  "None",
+                                             "id":  "28821",
+                                             "disabled":  false
+                                         },
+                   "customfield_11202":  null,
+                   "customfield_11203":  null,
+                   "customfield_13864":  null,
+                   "customfield_12525":  null,
+                   "customfield_13856":  null,
+                   "customfield_14704":  null,
+                   "customfield_12524":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/76970",
+                                             "value":  "Internal",
+                                             "id":  "76970",
+                                             "disabled":  false
+                                         },
+                   "customfield_14705":  "explain data causes/origin",
+                   "customfield_14702":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/96308",
+                                             "value":  "None",
+                                             "id":  "96308",
+                                             "disabled":  false
+                                         },
+                   "customfield_14703":  0.0,
+                   "customfield_28200":  null,
+                   "customfield_14706":  "\u0026quot;summarize how to fix\u0026quot;",
+                   "customfield_14707":  null,
+                   "customfield_28205":  null,
+                   "customfield_28202":  null,
+                   "customfield_28203":  null,
+                   "customfield_14700":  {
+                                             "self":  "https://jira.se.com/rest/api/2/user?username=SESA37873",
+                                             "name":  "SESA37873",
+                                             "key":  "JIRAUSER21399",
+                                             "emailAddress":  "jean-francois.patault@se.com",
+                                             "avatarUrls":  {
+                                                                "48x48":  "https://jira.se.com/secure/useravatar?ownerId=JIRAUSER21399\u0026avatarId=16239",
+                                                                "24x24":  "https://jira.se.com/secure/useravatar?size=small\u0026ownerId=JIRAUSER21399\u0026avatarId=16239",
+                                                                "16x16":  "https://jira.se.com/secure/useravatar?size=xsmall\u0026ownerId=JIRAUSER21399\u0026avatarId=16239",
+                                                                "32x32":  "https://jira.se.com/secure/useravatar?size=medium\u0026ownerId=JIRAUSER21399\u0026avatarId=16239"
+                                                            },
+                                             "displayName":  "Jean-Francois PATAULT",
+                                             "active":  true,
+                                             "timeZone":  "Europe/Paris"
+                                         },
+                   "customfield_14701":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/30000",
+                                                 "value":  "Todo",
+                                                 "id":  "30000",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_12523":  null,
+                   "customfield_32701":  null,
+                   "customfield_29302":  null,
+                   "status":  {
+                                  "self":  "https://jira.se.com/rest/api/2/status/15239",
+                                  "description":  "",
+                                  "iconUrl":  "https://jira.se.com/images/icons/statuses/generic.png",
+                                  "name":  "Estimation In Progress",
+                                  "id":  "15239",
+                                  "statusCategory":  {
+                                                         "self":  "https://jira.se.com/rest/api/2/statuscategory/4",
+                                                         "id":  4,
+                                                         "key":  "indeterminate",
+                                                         "colorName":  "inprogress",
+                                                         "name":  "In Progress"
+                                                     }
+                              },
+                   "customfield_22553":  "\u003cOperational Root Cause analysis\u003e\r\n    (Enter the result and the attached file name)\r\n    \u003cResult\u003e\r\n\r\n    \u003cFile\u003e\r\n\r\n\u003cSystemic Root Cause analysis\u003e\r\n    (Enter the result and the attached file name)\r\n    \u003cResult\u003e\r\n\r\n    \u003cFile\u003e\r\n\r\n\u003cDefine Operational corrective action\u003e\r\n    (Enter the result and the attached file name)\r\n    \u003cResult\u003e\r\n\r\n    \u003cFile\u003e\r\n\r\n\u003cImplement \u0026 Check (corrective action)\u003e\r\n    (Enter the result and the attached file name)\r\n    \u003cResult\u003e\r\n\r\n    \u003cFile\u003e\r\n\r\n\u003cSystemic preventive action\u003e\r\n    (Enter the result and the attached file name)\r\n    \u003cResult\u003e\r\n\r\n    \u003cFile\u003e",
+                   "archiveddate":  null,
+                   "aggregatetimeestimate":  null,
+                   "customfield_13837":  null,
+                   "creator":  {
+                                   "self":  "https://jira.se.com/rest/api/2/user?username=SESI019133",
+                                   "name":  "SESI019133",
+                                   "key":  "JIRAUSER74206",
+                                   "emailAddress":  "global.enterprise.integration.globalsupport@se.com",
+                                   "avatarUrls":  {
+                                                      "48x48":  "https://www.gravatar.com/avatar/af34cd476b6b9b08c028f4f98fe52a59?d=mm\u0026s=48",
+                                                      "24x24":  "https://www.gravatar.com/avatar/af34cd476b6b9b08c028f4f98fe52a59?d=mm\u0026s=24",
+                                                      "16x16":  "https://www.gravatar.com/avatar/af34cd476b6b9b08c028f4f98fe52a59?d=mm\u0026s=16",
+                                                      "32x32":  "https://www.gravatar.com/avatar/af34cd476b6b9b08c028f4f98fe52a59?d=mm\u0026s=32"
+                                                  },
+                                   "displayName":  "Service Now JiraGlobal",
+                                   "active":  true,
+                                   "timeZone":  "UTC"
+                               },
+                   "customfield_17194":  null,
+                   "customfield_18285":  null,
+                   "customfield_30305":  null,
+                   "customfield_12501":  null,
+                   "customfield_13832":  null,
+                   "customfield_13822":  null,
+                   "customfield_14914":  "1. Filter(s) :\r\n2.Scenario :\r\n3 . Hierarchy :\r\n4.  Execution Time : \r\n5. Video  *attachment*",
+                   "customfield_14911":  0.0,
+                   "customfield_14919":  null,
+                   "customfield_17186":  null,
+                   "customfield_18276":  null,
+                   "customfield_17185":  "FR012132",
+                   "customfield_17184":  null,
+                   "customfield_18278":  null,
+                   "customfield_17188":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/36009",
+                                                 "value":  "N/A",
+                                                 "id":  "36009",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "timespent":  null,
+                   "customfield_17187":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/36006",
+                                                 "value":  "N/A",
+                                                 "id":  "36006",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_11401":  null,
+                   "customfield_14902":  0.0,
+                   "customfield_10544":  null,
+                   "customfield_13814":  null,
+                   "customfield_14901":  null,
+                   "customfield_13816":  null,
+                   "customfield_28003":  null,
+                   "customfield_13818":  null,
+                   "customfield_28000":  null,
+                   "customfield_13817":  null,
+                   "customfield_28001":  null,
+                   "customfield_28006":  null,
+                   "customfield_13819":  null,
+                   "customfield_28007":  null,
+                   "customfield_28004":  null,
+                   "customfield_28005":  null,
+                   "customfield_17182":  null,
+                   "customfield_17181":  null,
+                   "customfield_17175":  null,
+                   "customfield_17174":  null,
+                   "customfield_17173":  null,
+                   "customfield_17172":  null,
+                   "customfield_17179":  null,
+                   "customfield_18261":  null,
+                   "customfield_17178":  null,
+                   "customfield_39144":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/108952",
+                                                 "value":  "TO BE DEFINED",
+                                                 "id":  "108952",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_39145":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/108957",
+                                                 "value":  "TO BE DEFINED",
+                                                 "id":  "108957",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_17176":  null,
+                   "customfield_18264":  null,
+                   "customfield_39147":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/108960",
+                                                 "value":  "N/A",
+                                                 "id":  "108960",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_33837":  null,
+                   "customfield_10541":  "--",
+                   "customfield_10542":  null,
+                   "customfield_10533":  "*+PreConditions:+*\r\n\r\n*+Test Procedure:+*\r\n\r\n*+Observed Result:+*\r\n\r\n*+Expected Result:+*\r\n",
+                   "customfield_10534":  null,
+                   "customfield_10535":  null,
+                   "customfield_12714":  null,
+                   "customfield_10536":  null,
+                   "customfield_10537":  null,
+                   "customfield_28015":  null,
+                   "customfield_17171":  null,
+                   "customfield_22999":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48560",
+                                             "value":  "Committed",
+                                             "id":  "48560",
+                                             "disabled":  false
+                                         },
+                   "customfield_39150":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/108980",
+                                                 "value":  "TO BE DEFINED",
+                                                 "id":  "108980",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_22994":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48558",
+                                             "value":  "Feature",
+                                             "id":  "48558",
+                                             "disabled":  false
+                                         },
+                   "customfield_17162":  null,
+                   "customfield_22993":  null,
+                   "customfield_18257":  null,
+                   "customfield_17168":  null,
+                   "customfield_18250":  null,
+                   "customfield_39156":  null,
+                   "customfield_18252":  null,
+                   "customfield_18259":  null,
+                   "customfield_12703":  null,
+                   "customfield_10525":  null,
+                   "customfield_11613":  null,
+                   "customfield_30101":  null,
+                   "customfield_12705":  null,
+                   "customfield_10526":  null,
+                   "customfield_10527":  null,
+                   "customfield_10528":  null,
+                   "customfield_17160":  null,
+                   "customfield_17153":  null,
+                   "customfield_22984":  null,
+                   "customfield_39161":  "\u0026amp;quot;identify the global process referent\u0026amp;quot;",
+                   "customfield_17152":  null,
+                   "customfield_22983":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48527",
+                                             "value":  "Minor",
+                                             "id":  "48527",
+                                             "disabled":  false
+                                         },
+                   "customfield_17151":  null,
+                   "customfield_22982":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48525",
+                                             "value":  "Medium",
+                                             "id":  "48525",
+                                             "disabled":  false
+                                         },
+                   "customfield_17150":  null,
+                   "customfield_19577":  null,
+                   "customfield_22980":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48520",
+                                             "value":  "1 - Low (\u003c 500K)",
+                                             "id":  "48520",
+                                             "disabled":  false
+                                         },
+                   "customfield_39165":  null,
+                   "customfield_17156":  null,
+                   "customfield_39167":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/109029",
+                                                 "value":  "N/A",
+                                                 "id":  "109029",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_17154":  null,
+                   "customfield_39168":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/109033",
+                                             "value":  "No",
+                                             "id":  "109033",
+                                             "disabled":  false
+                                         },
+                   "customfield_30106":  null,
+                   "customfield_30107":  null,
+                   "customfield_17159":  null,
+                   "customfield_30108":  null,
+                   "customfield_17158":  "SCTASK4826582",
+                   "customfield_30109":  null,
+                   "customfield_30102":  null,
+                   "customfield_30104":  null,
+                   "customfield_30105":  null,
+                   "customfield_30110":  null,
+                   "customfield_30111":  null,
+                   "customfield_30112":  null,
+                   "customfield_11605":  null,
+                   "customfield_22979":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48517",
+                                             "value":  "1 - Low (Similar offer/solution available in the market)",
+                                             "id":  "48517",
+                                             "disabled":  false
+                                         },
+                   "customfield_22977":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48514",
+                                             "value":  "1 - Low (Nice to have)",
+                                             "id":  "48514",
+                                             "disabled":  false
+                                         },
+                   "customfield_22976":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48513",
+                                             "value":  "3 - High (Technically complex and market channel does not exist)",
+                                             "id":  "48513",
+                                             "disabled":  false
+                                         },
+                   "customfield_22975":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/48509",
+                                             "value":  "2 - Medium (100K to 250K)",
+                                             "id":  "48509",
+                                             "disabled":  false
+                                         },
+                   "customfield_22974":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/48507",
+                                                 "value":  "All",
+                                                 "id":  "48507",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_12491":  "Have you included the following information?\r\nSummary: What do you need? Include Feature ID if existing.\r\n  New Feature/Question (w or w/o Answers)\r\n  New Value/Answer\r\n  Modify Existing Feature or Value\r\n  Abbreviation (Add or Modify)\r\n  Administrative\r\n\r\nDescription:\r\n  Product Model ID or enter using drop down\r\n  Feature (Question) ID  (if existing)\r\n  Feature (Question) Name  (30 char max (English))\r\n  Value (Answer) Name(s)  (30 char max (English))  (check box will be Y,0)\r\n\r\nMay Need\r\n  Display Type: Choice List, Check Box, User Input, Button, Ellipsis, Radio Button\r\n  Data Type:  Alpha Numerical, Decimal, Integer\r\n\r\nIf have more than 6 new feature sets (Question/Answer) consider attaching a spreadsheet.\r\nIf have an URGENT need, then let the CMA (Mike De Jongh) know via email or skype \r\nNew Q \u0026amp; A will go through the translation (Spanish) process which adds a little more time.\r\n",
+                   "customfield_14670":  null,
+                   "customfield_12490":  null,
+                   "customfield_14671":  null,
+                   "customfield_12492":  null,
+                   "customfield_13100":  "1) How will  the new functionality be tested? What are the expected results?\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\t\r\n      1.1) Who will test?\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n      1.2) E2E Impact on other workbooks (1*)\r\n\t\t\t\t\t\t\r\n2) Regression test to perform\t\t\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n3) LIST ALL THE CURRENT WORKBOOK CAPABILITIES\t\t\t\t\t\t\r\n=\u0026gt; If already existing, complete the workbook capabilities list \t\t\t\t\t\t\r\n=\u0026gt; Otherwise please initiate the document \t\t\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n",
+                   "customfield_12495":  "None",
+                   "customfield_14674":  null,
+                   "customfield_12011":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/98181",
+                                                 "value":  "None",
+                                                 "id":  "98181",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_14675":  0.0,
+                   "customfield_38400":  null,
+                   "customfield_12497":  "None",
+                   "customfield_14672":  null,
+                   "customfield_38401":  null,
+                   "customfield_13101":  "0",
+                   "customfield_14673":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/96329",
+                                             "value":  "0",
+                                             "id":  "96329",
+                                             "disabled":  false
+                                         },
+                   "customfield_12496":  "None",
+                   "customfield_12257":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13296",
+                                             "value":  "NA",
+                                             "id":  "13296",
+                                             "disabled":  false
+                                         },
+                   "customfield_12498":  null,
+                   "customfield_12007":  null,
+                   "customfield_14669":  null,
+                   "customfield_27511":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/96333",
+                                             "value":  "0",
+                                             "id":  "96333",
+                                             "disabled":  false
+                                         },
+                   "customfield_27514":  null,
+                   "customfield_28605":  null,
+                   "customfield_27513":  null,
+                   "customfield_28602":  null,
+                   "customfield_27516":  null,
+                   "customfield_27515":  null,
+                   "customfield_27518":  null,
+                   "customfield_27517":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/60217",
+                                             "value":  "No",
+                                             "id":  "60217",
+                                             "disabled":  false
+                                         },
+                   "customfield_27759":  null,
+                   "customfield_28606":  null,
+                   "customfield_28607":  null,
+                   "customfield_14660":  null,
+                   "customfield_23131":  null,
+                   "customfield_12000":  null,
+                   "customfield_14663":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/102678",
+                                             "value":  "Medium",
+                                             "id":  "102678",
+                                             "disabled":  false
+                                         },
+                   "customfield_23130":  null,
+                   "customfield_12483":  "no_permission",
+                   "customfield_14661":  null,
+                   "customfield_14662":  null,
+                   "customfield_12245":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13265",
+                                             "value":  "NA",
+                                             "id":  "13265",
+                                             "disabled":  false
+                                         },
+                   "customfield_12487":  null,
+                   "customfield_14668":  null,
+                   "customfield_12006":  null,
+                   "customfield_12248":  null,
+                   "customfield_16601":  null,
+                   "customfield_12489":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/14174",
+                                             "value":  "Choice List",
+                                             "id":  "14174",
+                                             "disabled":  false
+                                         },
+                   "customfield_12247":  null,
+                   "customfield_14666":  null,
+                   "customfield_15505":  null,
+                   "customfield_29700":  null,
+                   "customfield_29701":  null,
+                   "customfield_29704":  null,
+                   "customfield_29705":  null,
+                   "customfield_29702":  null,
+                   "customfield_29703":  null,
+                   "components":  [
+                                      {
+                                          "self":  "https://jira.se.com/rest/api/2/component/19979",
+                                          "id":  "19979",
+                                          "name":  "EMH-Middleware",
+                                          "description":  "Event Mediation Hub - Kafka based, event driven, streaming integration support."
+                                      }
+                                  ],
+                   "customfield_29707":  null,
+                   "customfield_12472":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/14089",
+                                                 "value":  "none",
+                                                 "id":  "14089",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_12475":  null,
+                   "customfield_14657":  null,
+                   "customfield_27773":  null,
+                   "customfield_23117":  null,
+                   "customfield_23116":  null,
+                   "customfield_30709":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/76968",
+                                             "value":  "TO BE DEFINED",
+                                             "id":  "76968",
+                                             "disabled":  false
+                                         },
+                   "customfield_30706":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/76954",
+                                             "value":  "ETP",
+                                             "id":  "76954",
+                                             "disabled":  false
+                                         },
+                   "customfield_12462":  null,
+                   "customfield_12461":  null,
+                   "customfield_30702":  "INTSOL-36903",
+                   "customfield_12465":  null,
+                   "customfield_12467":  null,
+                   "customfield_37100":  null,
+                   "customfield_27784":  null,
+                   "progress":  {
+                                    "progress":  0,
+                                    "total":  0
+                                },
+                   "customfield_27304":  null,
+                   "customfield_23105":  null,
+                   "customfield_23104":  null,
+                   "project":  {
+                                   "self":  "https://jira.se.com/rest/api/2/project/16817",
+                                   "id":  "16817",
+                                   "key":  "INTSOL",
+                                   "name":  "Enterprise Integration Solutions",
+                                   "projectTypeKey":  "software",
+                                   "avatarUrls":  {
+                                                      "48x48":  "https://jira.se.com/secure/projectavatar?pid=16817\u0026avatarId=10207",
+                                                      "24x24":  "https://jira.se.com/secure/projectavatar?size=small\u0026pid=16817\u0026avatarId=10207",
+                                                      "16x16":  "https://jira.se.com/secure/projectavatar?size=xsmall\u0026pid=16817\u0026avatarId=10207",
+                                                      "32x32":  "https://jira.se.com/secure/projectavatar?size=medium\u0026pid=16817\u0026avatarId=10207"
+                                                  }
+                               },
+                   "customfield_15724":  null,
+                   "customfield_13301":  null,
+                   "customfield_12454":  null,
+                   "customfield_30710":  "INTSOL-36903",
+                   "customfield_14625":  null,
+                   "customfield_14626":  null,
+                   "customfield_25131":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/54149",
+                                             "value":  "Unknown",
+                                             "id":  "54149",
+                                             "disabled":  false
+                                         },
+                   "resolutiondate":  null,
+                   "customfield_25132":  null,
+                   "customfield_41600":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/142662",
+                                             "value":  "Not applicable",
+                                             "id":  "142662",
+                                             "disabled":  false
+                                         },
+                   "customfield_25133":  null,
+                   "customfield_25134":  null,
+                   "customfield_28400":  null,
+                   "customfield_25137":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/54219",
+                                             "value":  "No",
+                                             "id":  "54219",
+                                             "disabled":  false
+                                         },
+                   "customfield_25138":  null,
+                   "customfield_25139":  null,
+                   "customfield_21393":  null,
+                   "customfield_21392":  null,
+                   "customfield_21391":  null,
+                   "customfield_21390":  null,
+                   "customfield_14860":  null,
+                   "customfield_14866":  null,
+                   "customfield_14614":  "2026-12-31",
+                   "customfield_14857":  "What is in MVP scope?\r\n\r\nWhat is envisionned post MVP ?\r\n\r\nWhat is out of the epic scope?\r\n\r\nNonfunctional Requirements or Critical to Quality if any",
+                   "customfield_25140":  null,
+                   "customfield_25143":  null,
+                   "customfield_25144":  null,
+                   "customfield_25146":  null,
+                   "customfield_29506":  null,
+                   "customfield_29507":  null,
+                   "customfield_25149":  null,
+                   "customfield_21389":  null,
+                   "customfield_21388":  null,
+                   "customfield_29508":  null,
+                   "customfield_29509":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/74052",
+                                             "value":  "Standard",
+                                             "id":  "74052",
+                                             "disabled":  false
+                                         },
+                   "customfield_14851":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/29630",
+                                             "value":  "---",
+                                             "id":  "29630",
+                                             "disabled":  false
+                                         },
+                   "customfield_10005":  "1|i4htaw:",
+                   "customfield_10006":  null,
+                   "customfield_14845":  null,
+                   "customfield_11339":  [
+                                             {
+                                                 "issueKey":  "INTSOL-60499",
+                                                 "status":  "UNCOVERED",
+                                                 "statusStyle":  "uncovered",
+                                                 "ok":  0,
+                                                 "okPercent":  0.0,
+                                                 "okJql":  "issueKey in ()",
+                                                 "nok":  0,
+                                                 "nokPercent":  0.0,
+                                                 "nokJql":  "issueKey in ()",
+                                                 "notrun":  0,
+                                                 "notrunPercent":  0.0,
+                                                 "notRunJql":  "issueKey in ()",
+                                                 "unknown":  0,
+                                                 "unknownPercent":  0.0,
+                                                 "unknownJql":  "issueKey in ()"
+                                             }
+                                         ],
+                   "customfield_14604":  null,
+                   "customfield_25150":  null,
+                   "customfield_26003":  null,
+                   "customfield_29513":  null,
+                   "customfield_29514":  null,
+                   "customfield_25159":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/54264",
+                                             "value":  "Open",
+                                             "id":  "54264",
+                                             "disabled":  false
+                                         },
+                   "summary":  "Implement Delete flow to 3D model API",
+                   "customfield_10000":  "INTSOL-36903",
+                   "customfield_10001":  null,
+                   "customfield_14844":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/36964",
+                                             "value":  "---",
+                                             "id":  "36964",
+                                             "disabled":  false
+                                         },
+                   "customfield_30500":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/83088",
+                                             "value":  "EI-IFW",
+                                             "id":  "83088",
+                                             "disabled":  false
+                                         },
+                   "customfield_14600":  null,
+                   "customfield_10004":  null,
+                   "customfield_12415":  null,
+                   "customfield_12414":  null,
+                   "customfield_13987":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/20175",
+                                             "value":  "Yes",
+                                             "id":  "20175",
+                                             "disabled":  false,
+                                             "child":  {
+                                                           "self":  "https://jira.se.com/rest/api/2/customFieldOption/20176",
+                                                           "value":  "Pending",
+                                                           "id":  "20176",
+                                                           "disabled":  false
+                                                       }
+                                         },
+                   "customfield_25160":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/54268",
+                                             "value":  "Open",
+                                             "id":  "54268",
+                                             "disabled":  false
+                                         },
+                   "comment":  {
+                                   "comments":  [
+                                                    {
+                                                        "self":  "https://jira.se.com/rest/api/2/issue/8011995/comment/9461922",
+                                                        "id":  "9461922",
+                                                        "author":  {
+                                                                       "self":  "https://jira.se.com/rest/api/2/user?username=SESA756752",
+                                                                       "name":  "SESA756752",
+                                                                       "key":  "JIRAUSER74844",
+                                                                       "emailAddress":  "daria.tikhomirova@se.com",
+                                                                       "avatarUrls":  "@{48x48=https://jira.se.com/secure/useravatar?avatarId=10341; 24x24=https://jira.se.com/secure/useravatar?size=small\u0026avatarId=10341; 16x16=https://jira.se.com/secure/useravatar?size=xsmall\u0026avatarId=10341; 32x32=https://jira.se.com/secure/useravatar?size=medium\u0026avatarId=10341}",
+                                                                       "displayName":  "Daria Tikhomirova",
+                                                                       "active":  true,
+                                                                       "timeZone":  "UTC"
+                                                                   },
+                                                        "body":  "The meeting is scheduled on August 20th.",
+                                                        "updateAuthor":  {
+                                                                             "self":  "https://jira.se.com/rest/api/2/user?username=SESA756752",
+                                                                             "name":  "SESA756752",
+                                                                             "key":  "JIRAUSER74844",
+                                                                             "emailAddress":  "daria.tikhomirova@se.com",
+                                                                             "avatarUrls":  "@{48x48=https://jira.se.com/secure/useravatar?avatarId=10341; 24x24=https://jira.se.com/secure/useravatar?size=small\u0026avatarId=10341; 16x16=https://jira.se.com/secure/useravatar?size=xsmall\u0026avatarId=10341; 32x32=https://jira.se.com/secure/useravatar?size=medium\u0026avatarId=10341}",
+                                                                             "displayName":  "Daria Tikhomirova",
+                                                                             "active":  true,
+                                                                             "timeZone":  "UTC"
+                                                                         },
+                                                        "created":  "2026-08-13T08:41:15.602+0000",
+                                                        "updated":  "2026-08-13T08:41:15.602+0000"
+                                                    },
+                                                    {
+                                                        "self":  "https://jira.se.com/rest/api/2/issue/8011995/comment/9492368",
+                                                        "id":  "9492368",
+                                                        "author":  {
+                                                                       "self":  "https://jira.se.com/rest/api/2/user?username=SESA756752",
+                                                                       "name":  "SESA756752",
+                                                                       "key":  "JIRAUSER74844",
+                                                                       "emailAddress":  "daria.tikhomirova@se.com",
+                                                                       "avatarUrls":  "@{48x48=https://jira.se.com/secure/useravatar?avatarId=10341; 24x24=https://jira.se.com/secure/useravatar?size=small\u0026avatarId=10341; 16x16=https://jira.se.com/secure/useravatar?size=xsmall\u0026avatarId=10341; 32x32=https://jira.se.com/secure/useravatar?size=medium\u0026avatarId=10341}",
+                                                                       "displayName":  "Daria Tikhomirova",
+                                                                       "active":  true,
+                                                                       "timeZone":  "UTC"
+                                                                   },
+                                                        "body":  "The meeting done today among Kamlesh and requestor.\r\n\r\nThe requirement is clear to the team. Estimated effort will be 5 days for development + unit testing.",
+                                                        "updateAuthor":  {
+                                                                             "self":  "https://jira.se.com/rest/api/2/user?username=SESA756752",
+                                                                             "name":  "SESA756752",
+                                                                             "key":  "JIRAUSER74844",
+                                                                             "emailAddress":  "daria.tikhomirova@se.com",
+                                                                             "avatarUrls":  "@{48x48=https://jira.se.com/secure/useravatar?avatarId=10341; 24x24=https://jira.se.com/secure/useravatar?size=small\u0026avatarId=10341; 16x16=https://jira.se.com/secure/useravatar?size=xsmall\u0026avatarId=10341; 32x32=https://jira.se.com/secure/useravatar?size=medium\u0026avatarId=10341}",
+                                                                             "displayName":  "Daria Tikhomirova",
+                                                                             "active":  true,
+                                                                             "timeZone":  "UTC"
+                                                                         },
+                                                        "created":  "2026-08-20T12:30:44.007+0000",
+                                                        "updated":  "2026-08-20T12:30:44.007+0000"
+                                                    },
+                                                    {
+                                                        "self":  "https://jira.se.com/rest/api/2/issue/8011995/comment/9492513",
+                                                        "id":  "9492513",
+                                                        "author":  {
+                                                                       "self":  "https://jira.se.com/rest/api/2/user?username=SESA756752",
+                                                                       "name":  "SESA756752",
+                                                                       "key":  "JIRAUSER74844",
+                                                                       "emailAddress":  "daria.tikhomirova@se.com",
+                                                                       "avatarUrls":  "@{48x48=https://jira.se.com/secure/useravatar?avatarId=10341; 24x24=https://jira.se.com/secure/useravatar?size=small\u0026avatarId=10341; 16x16=https://jira.se.com/secure/useravatar?size=xsmall\u0026avatarId=10341; 32x32=https://jira.se.com/secure/useravatar?size=medium\u0026avatarId=10341}",
+                                                                       "displayName":  "Daria Tikhomirova",
+                                                                       "active":  true,
+                                                                       "timeZone":  "UTC"
+                                                                   },
+                                                        "body":  "The efforts estimation details have been shared to Anastasia and Jordi via email.",
+                                                        "updateAuthor":  {
+                                                                             "self":  "https://jira.se.com/rest/api/2/user?username=SESA756752",
+                                                                             "name":  "SESA756752",
+                                                                             "key":  "JIRAUSER74844",
+                                                                             "emailAddress":  "daria.tikhomirova@se.com",
+                                                                             "avatarUrls":  "@{48x48=https://jira.se.com/secure/useravatar?avatarId=10341; 24x24=https://jira.se.com/secure/useravatar?size=small\u0026avatarId=10341; 16x16=https://jira.se.com/secure/useravatar?size=xsmall\u0026avatarId=10341; 32x32=https://jira.se.com/secure/useravatar?size=medium\u0026avatarId=10341}",
+                                                                             "displayName":  "Daria Tikhomirova",
+                                                                             "active":  true,
+                                                                             "timeZone":  "UTC"
+                                                                         },
+                                                        "created":  "2026-08-20T12:49:05.730+0000",
+                                                        "updated":  "2026-08-20T12:49:05.730+0000"
+                                                    },
+                                                    {
+                                                        "self":  "https://jira.se.com/rest/api/2/issue/8011995/comment/9543960",
+                                                        "id":  "9543960",
+                                                        "author":  {
+                                                                       "self":  "https://jira.se.com/rest/api/2/user?username=SESA469620",
+                                                                       "name":  "SESA469620",
+                                                                       "key":  "JIRAUSER29223",
+                                                                       "emailAddress":  "JOFRE.ALGUE@se.com",
+                                                                       "avatarUrls":  "@{48x48=https://www.gravatar.com/avatar/7f1565e047f7e72d0f5877affb94dad0?d=mm\u0026s=48; 24x24=https://www.gravatar.com/avatar/7f1565e047f7e72d0f5877affb94dad0?d=mm\u0026s=24; 16x16=https://www.gravatar.com/avatar/7f1565e047f7e72d0f5877affb94dad0?d=mm\u0026s=16; 32x32=https://www.gravatar.com/avatar/7f1565e047f7e72d0f5877affb94dad0?d=mm\u0026s=32}",
+                                                                       "displayName":  "Jofre Algue",
+                                                                       "active":  true,
+                                                                       "timeZone":  "Europe/Madrid"
+                                                                   },
+                                                        "body":  "Approval from requestors is pending. As soon as team gets it, development will be started next week.",
+                                                        "updateAuthor":  {
+                                                                             "self":  "https://jira.se.com/rest/api/2/user?username=SESA469620",
+                                                                             "name":  "SESA469620",
+                                                                             "key":  "JIRAUSER29223",
+                                                                             "emailAddress":  "JOFRE.ALGUE@se.com",
+                                                                             "avatarUrls":  "@{48x48=https://www.gravatar.com/avatar/7f1565e047f7e72d0f5877affb94dad0?d=mm\u0026s=48; 24x24=https://www.gravatar.com/avatar/7f1565e047f7e72d0f5877affb94dad0?d=mm\u0026s=24; 16x16=https://www.gravatar.com/avatar/7f1565e047f7e72d0f5877affb94dad0?d=mm\u0026s=16; 32x32=https://www.gravatar.com/avatar/7f1565e047f7e72d0f5877affb94dad0?d=mm\u0026s=32}",
+                                                                             "displayName":  "Jofre Algue",
+                                                                             "active":  true,
+                                                                             "timeZone":  "Europe/Madrid"
+                                                                         },
+                                                        "created":  "2026-09-02T07:42:27.797+0000",
+                                                        "updated":  "2026-09-02T07:42:27.797+0000"
+                                                    },
+                                                    {
+                                                        "self":  "https://jira.se.com/rest/api/2/issue/8011995/comment/9577926",
+                                                        "id":  "9577926",
+                                                        "author":  {
+                                                                       "self":  "https://jira.se.com/rest/api/2/user?username=SESA720729",
+                                                                       "name":  "SESA720729",
+                                                                       "key":  "JIRAUSER60801",
+                                                                       "emailAddress":  "kamleshkumar.choubey@se.com",
+                                                                       "avatarUrls":  "@{48x48=https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=48; 24x24=https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=24; 16x16=https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=16; 32x32=https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=32}",
+                                                                       "displayName":  "Kamlesh Kumar Choubey",
+                                                                       "active":  true,
+                                                                       "timeZone":  "UTC"
+                                                                   },
+                                                        "body":  "[^RE_ INTSOL-60499, Implement Deelete Flow to 3D Model API, Estimation Approval Request (2).msg]\r\nWe have received the estimation approval. Requirement has been discussed and finalized with @Anastasia. As a part of this change we are going to delete the assets when\r\n\"docType\"=\"3D Model\" OR “360 set of image\", and “action” = “DELETE”. This change will be done in dam-asset-processor. \r\nStart date : 14 Sep and will be completed by end of next week.",
+                                                        "updateAuthor":  {
+                                                                             "self":  "https://jira.se.com/rest/api/2/user?username=SESA720729",
+                                                                             "name":  "SESA720729",
+                                                                             "key":  "JIRAUSER60801",
+                                                                             "emailAddress":  "kamleshkumar.choubey@se.com",
+                                                                             "avatarUrls":  "@{48x48=https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=48; 24x24=https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=24; 16x16=https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=16; 32x32=https://www.gravatar.com/avatar/dc365c4f9bac50aadc684481f5501a57?d=mm\u0026s=32}",
+                                                                             "displayName":  "Kamlesh Kumar Choubey",
+                                                                             "active":  true,
+                                                                             "timeZone":  "UTC"
+                                                                         },
+                                                        "created":  "2026-09-09T08:50:15.881+0000",
+                                                        "updated":  "2026-09-09T08:50:15.881+0000"
+                                                    }
+                                                ],
+                                   "maxResults":  1000,
+                                   "total":  5,
+                                   "startAt":  0
+                               },
+                   "customfield_29522":  null,
+                   "customfield_40300":  null,
+                   "customfield_17300":  null,
+                   "customfield_17542":  null,
+                   "customfield_16452":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/34476",
+                                             "value":  "Restricted",
+                                             "id":  "34476",
+                                             "disabled":  false
+                                         },
+                   "customfield_38800":  null,
+                   "customfield_32026":  null,
+                   "customfield_10900":  "{}",
+                   "customfield_20941":  null,
+                   "customfield_23312":  null,
+                   "customfield_23314":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/49629",
+                                             "value":  "DEPLOY",
+                                             "id":  "49629",
+                                             "disabled":  false
+                                         },
+                   "customfield_23317":  null,
+                   "customfield_23319":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/49635",
+                                             "value":  "S: \u003c 2h",
+                                             "id":  "49635",
+                                             "disabled":  false
+                                         },
+                   "customfield_32028":  null,
+                   "customfield_39900":  null,
+                   "customfield_39901":  null,
+                   "customfield_39902":  null,
+                   "versions":  [
+
+                                ],
+                   "customfield_20936":  null,
+                   "customfield_32032":  null,
+                   "customfield_20937":  null,
+                   "customfield_20934":  null,
+                   "customfield_20935":  null,
+                   "customfield_23320":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/49640",
+                                             "value":  "No",
+                                             "id":  "49640",
+                                             "disabled":  false
+                                         },
+                   "customfield_20933":  null,
+                   "customfield_12071":  null,
+                   "customfield_12070":  null,
+                   "customfield_14256":  [
+                                             {
+                                                 "self":  "https://jira.se.com/rest/api/2/customFieldOption/24778",
+                                                 "value":  "None",
+                                                 "id":  "24778",
+                                                 "disabled":  false
+                                             }
+                                         ],
+                   "customfield_14254":  "None",
+                   "customfield_14255":  null,
+                   "customfield_15107":  "TO BE DEFINE",
+                   "customfield_39903":  null,
+                   "customfield_23330":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/49785",
+                                             "value":  "Unknown",
+                                             "id":  "49785",
+                                             "disabled":  false
+                                         },
+                   "customfield_23331":  null,
+                   "customfield_23335":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/49857",
+                                             "value":  "No",
+                                             "id":  "49857",
+                                             "disabled":  false
+                                         },
+                   "customfield_12064":  null,
+                   "customfield_12066":  null,
+                   "customfield_12065":  null,
+                   "customfield_12068":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/93086",
+                                             "value":  "Integration Change Request",
+                                             "id":  "93086",
+                                             "disabled":  false
+                                         },
+                   "customfield_12067":  null,
+                   "customfield_17510":  null,
+                   "aggregateprogress":  {
+                                             "progress":  0,
+                                             "total":  0
+                                         },
+                   "customfield_14007":  null,
+                   "customfield_16428":  null,
+                   "customfield_37504":  null,
+                   "customfield_32058":  null,
+                   "customfield_23341":  null,
+                   "customfield_23342":  null,
+                   "customfield_12051":  null,
+                   "customfield_16413":  null,
+                   "customfield_12055":  null,
+                   "customfield_12054":  null,
+                   "customfield_16411":  null,
+                   "customfield_17742":  null,
+                   "customfield_16410":  null,
+                   "customfield_12056":  null,
+                   "customfield_17741":  null,
+                   "customfield_38600":  null,
+                   "customfield_37506":  null,
+                   "customfield_32061":  null,
+                   "customfield_23354":  null,
+                   "customfield_23355":  0.0,
+                   "customfield_23356":  null,
+                   "customfield_28800":  null,
+                   "customfield_23357":  null,
+                   "customfield_27718":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/60083",
+                                             "value":  "Always",
+                                             "id":  "60083",
+                                             "disabled":  false
+                                         },
+                   "customfield_16641":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/35108",
+                                             "value":  "PREVIEW",
+                                             "id":  "35108",
+                                             "disabled":  false
+                                         },
+                   "customfield_16406":  null,
+                   "customfield_17736":  null,
+                   "customfield_14226":  null,
+                   "customfield_16638":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/34996",
+                                             "value":  "REL-MIN",
+                                             "id":  "34996",
+                                             "disabled":  false
+                                         },
+                   "customfield_14219":  null,
+                   "customfield_32075":  null,
+                   "customfield_35100":  null,
+                   "customfield_32072":  null,
+                   "customfield_25303":  null,
+                   "customfield_12270":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13327",
+                                             "value":  "NA",
+                                             "id":  "13327",
+                                             "disabled":  false
+                                         },
+                   "customfield_12273":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13336",
+                                             "value":  "NA",
+                                             "id":  "13336",
+                                             "disabled":  false
+                                         },
+                   "customfield_12275":  null,
+                   "customfield_14213":  null,
+                   "customfield_12037":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/12496",
+                                             "value":  "No",
+                                             "id":  "12496",
+                                             "disabled":  false
+                                         },
+                   "customfield_12039":  null,
+                   "customfield_12038":  null,
+                   "customfield_14215":  null,
+                   "customfield_14209":  null,
+                   "customfield_12029":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/100282",
+                                             "value":  "Low",
+                                             "id":  "100282",
+                                             "disabled":  false
+                                         },
+                   "customfield_36205":  null,
+                   "customfield_16627":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/34599",
+                                             "value":  "Algeria - Tier 3",
+                                             "id":  "34599",
+                                             "disabled":  false
+                                         },
+                   "customfield_27731":  null,
+                   "customfield_12260":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13307",
+                                             "value":  "NA",
+                                             "id":  "13307",
+                                             "disabled":  false
+                                         },
+                   "customfield_12262":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13315",
+                                             "value":  "NA",
+                                             "id":  "13315",
+                                             "disabled":  false
+                                         },
+                   "customfield_12261":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13311",
+                                             "value":  "NA",
+                                             "id":  "13311",
+                                             "disabled":  false
+                                         },
+                   "customfield_12263":  {
+                                             "self":  "https://jira.se.com/rest/api/2/customFieldOption/13319",
+                                             "value":  "NA",
+                                             "id":  "13319",
+                                             "disabled":  false
+                                         },
+                   "customfield_12024":  null,
+                   "customfield_12026":  null,
+                   "customfield_12028":  null,
+                   "customfield_12027":  null,
+                   "customfield_16617":  null,
+                   "customfield_27746":  null
+               },
+    "renderedFields":  null
+}

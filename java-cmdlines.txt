@@ -1,0 +1,93 @@
+
+
+ProcessId       : 10356
+ParentProcessId : 5752
+CommandLine     : c:\Users\SESA720729\.vscode\extensions\redhat.java-1.55.0-win
+                  32-x64\jre\21.0.11-win32-x86_64\bin\java 
+                  --add-modules=ALL-SYSTEM --add-opens 
+                  java.base/java.util=ALL-UNNAMED --add-opens 
+                  java.base/java.lang=ALL-UNNAMED --add-opens 
+                  java.base/sun.nio.fs=ALL-UNNAMED 
+                  -Declipse.application=org.eclipse.jdt.ls.core.id1 
+                  -Dosgi.bundles.defaultStartLevel=4 
+                  -Declipse.product=org.eclipse.jdt.ls.core.product 
+                  -Djava.import.generatesMetadataFilesAtProjectRoot=false 
+                  -DDetectVMInstallationsJob.disabled=true 
+                  -Dfile.encoding=utf8 -XX:+UseParallelGC -XX:GCTimeRatio=4 
+                  -XX:AdaptiveSizePolicyWeight=90 
+                  -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m 
+                  -Xlog:disable -javaagent:c:\Users\SESA720729\.vscode\extensio
+                  ns\redhat.java-1.55.0-win32-x64\lombok\lombok-1.18.39-4050.ja
+                  r -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=c:\Users\S
+                  ESA720729\AppData\Roaming\Code\User\workspaceStorage\f0c44919
+                  4267baf9c20361d318f68d47\redhat.java 
+                  -Daether.dependencyCollector.impl=bf -jar c:\Users\SESA720729
+                  \.vscode\extensions\redhat.java-1.55.0-win32-x64\server\plugi
+                  ns\org.eclipse.equinox.launcher_1.7.200.v20260619-2039.jar 
+                  -configuration c:\Users\SESA720729\AppData\Roaming\Code\User\
+                  globalStorage\redhat.java\1.55.0\config_win -data c:\Users\SE
+                  SA720729\AppData\Roaming\Code\User\workspaceStorage\f0c449194
+                  267baf9c20361d318f68d47\redhat.java\jdt_ws 
+                  --pipe=\\.\pipe\lsp-7346319c9e3ee49af6cea0d0287ba723-sock
+
+ProcessId       : 30512
+ParentProcessId : 5752
+CommandLine     : c:\Users\SESA720729\.vscode\extensions\redhat.java-1.55.0-win
+                  32-x64\jre\21.0.11-win32-x86_64\bin\java.exe 
+                  -Dspring.config.location=classpath:/application.properties 
+                  -Djdk.util.zip.disableZip64ExtraFieldValidation=true 
+                  -Dspring.main.web-application-type=NONE -Xmx1024m 
+                  -Dsts.lsp.client=vscode -Dlogging.level.root=error 
+                  -Xlog:jni+resolve=off -jar c:\Users\SESA720729\.vscode\extens
+                  ions\vmware.vscode-spring-boot-2.3.0\language-server\spring-b
+                  oot-language-server-2.3.0-SNAPSHOT-exec.jar
+
+ProcessId       : 19440
+ParentProcessId : 6088
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe"             
+                  -classpath "C:\Users\SESA720729\Downloads\apache-maven-3.9.2\
+                  boot\plexus-classworlds-2.7.0.jar"   "-Dclassworlds.conf=C:\U
+                  sers\SESA720729\Downloads\apache-maven-3.9.2\bin\m2.conf"   "
+                  -Dmaven.home=C:\Users\SESA720729\Downloads\apache-maven-3.9.2
+                  "   "-Dlibrary.jansi.path=C:\Users\SESA720729\Downloads\apach
+                  e-maven-3.9.2\lib\jansi-native"   "-Dmaven.multiModuleProject
+                  Directory=C:\Users\SESA720729\OneDrive - Schneider 
+                  Electric\Documents\My project\spring-ai-mcp-poc"   
+                  org.codehaus.plexus.classworlds.launcher.Launcher  -q 
+                  spring-boot:run
+
+ProcessId       : 4884
+ParentProcessId : 19440
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-17503238664632479643.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+ProcessId       : 19732
+ParentProcessId : 9472
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe"             
+                  -classpath "C:\Users\SESA720729\Downloads\apache-maven-3.9.2\
+                  boot\plexus-classworlds-2.7.0.jar"   "-Dclassworlds.conf=C:\U
+                  sers\SESA720729\Downloads\apache-maven-3.9.2\bin\m2.conf"   "
+                  -Dmaven.home=C:\Users\SESA720729\Downloads\apache-maven-3.9.2
+                  "   "-Dlibrary.jansi.path=C:\Users\SESA720729\Downloads\apach
+                  e-maven-3.9.2\lib\jansi-native"   "-Dmaven.multiModuleProject
+                  Directory=C:\Users\SESA720729\OneDrive - Schneider 
+                  Electric\Documents\My project\spring-ai-mcp-poc"   
+                  org.codehaus.plexus.classworlds.launcher.Launcher  
+                  spring-boot:run
+
+ProcessId       : 8496
+ParentProcessId : 19732
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-14934035441402506797.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+
+
+

@@ -1,0 +1,189 @@
+{
+    "value":  [
+                  {
+                      "name":  "spring_ai_mcp_client_confluence_mcp_server_confluence_getContent",
+                      "description":  "Get Confluence content by ID from the Confluence Data Center edition instance"
+                  },
+                  {
+                      "name":  "ing_ai_mcp_client_confluence_mcp_server_confluence_searchContent",
+                      "description":  "Search for content in Confluence Data Center edition instance using CQL"
+                  },
+                  {
+                      "name":  "ing_ai_mcp_client_confluence_mcp_server_confluence_createContent",
+                      "description":  "Create new content in Confluence Data Center edition instance"
+                  },
+                  {
+                      "name":  "ing_ai_mcp_client_confluence_mcp_server_confluence_updateContent",
+                      "description":  "Update existing content in Confluence Data Center edition instance. Optionally move the page by setting parentId."
+                  },
+                  {
+                      "name":  "i_mcp_client_confluence_mcp_server_confluence_downloadAttachment",
+                      "description":  "Download one or more attachments from a Confluence content (page) in the Confluence Data Center edition instance. Returns the file content inline (base64 or text). Useful for inspecting a file or moving it elsewhere (e.g. re-uploading to a Jira issue). Saving to local disk is disabled on this server."
+                  },
+                  {
+                      "name":  "pring_ai_mcp_client_confluence_mcp_server_confluence_searchSpace",
+                      "description":  "Search for spaces in Confluence Data Center edition instance"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_searchIssues",
+                      "description":  "Search for JIRA issues using JQL in the JIRA Data Center edition instance"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_getIssue",
+                      "description":  "Get details of a JIRA issue by its key from the JIRA Data Center edition instance"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_getIssueComments",
+                      "description":  "Get comments of a JIRA issue by its key from the JIRA Data Center edition instance"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_createIssue",
+                      "description":  "Create a new JIRA issue in the JIRA Data Center edition instance"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_updateIssue",
+                      "description":  "Update an existing JIRA issue in the JIRA Data Center edition instance"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_postIssueComment",
+                      "description":  "Post a comment on a JIRA issue in the JIRA Data Center edition instance"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_updateIssueComment",
+                      "description":  "Update the body of an existing comment on a JIRA issue in the JIRA Data Center edition instance. Use jira_getIssueComments to find the comment id."
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_getTransitions",
+                      "description":  "Get available status transitions for a JIRA issue in the JIRA Data Center edition instance. Returns a list of transitions with their IDs, names, and target statuses."
+                  },
+                  {
+                      "name":  "pring_ai_mcp_client_jira_mcp_server_jira_getIssueDevelopmentInfo",
+                      "description":  "Get linked development information (pull requests, commits, or branches) shown in the Development panel of a JIRA issue in the JIRA Data Center edition instance. Defaults to pull requests from Bitbucket."
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_transitionIssue",
+                      "description":  "Transition a JIRA issue to a new status in the JIRA Data Center edition instance. Use jira_getTransitions first to get available transition IDs."
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_getIssueLinkTypes",
+                      "description":  "Get the list of available issue link types (e.g. Blocks, Relates, Duplicate) in the JIRA Data Center edition instance. Use this to discover valid link type names before calling jira_linkIssues."
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_linkIssues",
+                      "description":  "Create a link between two JIRA issues in the JIRA Data Center edition instance. Direction is easy to invert vs the Jira UI: inwardIssueKey is the issue that DISPLAYS the outward phrase (e.g. \u0027blocks\u0027); outwardIssueKey displays the inward phrase (e.g. \u0027is blocked by\u0027). After create, GET the first issue √¢‚?¨‚?ù it must have outwardIssue = the second key. Use jira_getIssueLinkTypes for valid type names."
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_unlinkIssues",
+                      "description":  "Delete an existing link between two JIRA issues in the JIRA Data Center edition instance. Requires the issue link id (found in the \u0027issuelinks\u0027 field of an issue)."
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_jira_mcp_server_jira_downloadAttachment",
+                      "description":  "Download attachment(s) from a JIRA issue in the JIRA Data Center edition instance, by issue key (optionally filtered by filename) or by a single attachment id. Returns the file content inline (base64 or text). Useful for inspecting a file or moving it elsewhere (e.g. re-uploading to a Confluence page). Saving to local disk is disabled on this server."
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_create_or_update_file",
+                      "description":  "Create or update a single file in a GitHub repository"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_search_repositories",
+                      "description":  "Search for GitHub repositories"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_create_repository",
+                      "description":  "Create a new GitHub repository in your account"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_get_file_contents",
+                      "description":  "Get the contents of a file or directory from a GitHub repository"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_push_files",
+                      "description":  "Push multiple files to a GitHub repository in a single commit"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_create_issue",
+                      "description":  "Create a new issue in a GitHub repository"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_create_pull_request",
+                      "description":  "Create a new pull request in a GitHub repository"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_fork_repository",
+                      "description":  "Fork a GitHub repository to your account or specified organization"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_create_branch",
+                      "description":  "Create a new branch in a GitHub repository"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_list_commits",
+                      "description":  "Get list of commits of a branch in a GitHub repository"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_list_issues",
+                      "description":  "List issues in a GitHub repository with filtering options"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_update_issue",
+                      "description":  "Update an existing issue in a GitHub repository"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_add_issue_comment",
+                      "description":  "Add a comment to an existing issue"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_search_code",
+                      "description":  "Search for code across GitHub repositories"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_search_issues",
+                      "description":  "Search for issues and pull requests across GitHub repositories"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_search_users",
+                      "description":  "Search for users on GitHub"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_get_issue",
+                      "description":  "Get details of a specific issue in a GitHub repository."
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_get_pull_request",
+                      "description":  "Get details of a specific pull request"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_list_pull_requests",
+                      "description":  "List and filter repository pull requests"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_create_pull_request_review",
+                      "description":  "Create a review on a pull request"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_merge_pull_request",
+                      "description":  "Merge a pull request"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_get_pull_request_files",
+                      "description":  "Get the list of files changed in a pull request"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_get_pull_request_status",
+                      "description":  "Get the combined status of all status checks for a pull request"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_update_pull_request_branch",
+                      "description":  "Update a pull request branch with the latest changes from the base branch"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_get_pull_request_comments",
+                      "description":  "Get the review comments on a pull request"
+                  },
+                  {
+                      "name":  "spring_ai_mcp_client_git_mcp_server_get_pull_request_reviews",
+                      "description":  "Get the reviews on a pull request"
+                  }
+              ],
+    "Count":  46
+}

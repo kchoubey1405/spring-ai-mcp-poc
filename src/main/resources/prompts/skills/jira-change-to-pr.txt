@@ -1,0 +1,78 @@
+SKILL: jira-change-to-pr  (implement a Jira change and raise a pull request)
+
+WHEN TO USE
+The user asks to make / implement / fix a change for a Jira ticket and raise (create/open) a pull request, e.g.
+"make the change for CMDM-8449 and raise a PR", "implement this Jira and create a pull request in mdm-integration".
+
+THERE IS NO LOCAL CLONE
+The local machine has no checkout and you must not run shell commands. "Clone the repository" means: read the needed code through the Git MCP tools
+(get_repository_tree, get_file_contents) and write the change back with commits on a new branch (create_branch, push_files / create_or_update_file).
+The result is the same: a branch with the change and a pull request.
+
+WORKFLOW - do the steps in order; batch calls that do not depend on each other (max 6 per step); calls inside one step run in order and stop at the first error.
+
+1. UNDERSTAND THE JIRA
+   - Use the pre-fetched issue from the prompt (or jira_getIssue). Also jira_getIssueComments if the description is thin.
+   - Write down: what must change, acceptance criteria, affected system/connector/field/API, constraints.
+   - If the requirement is unclear or contradictory: STOP and ask the user specific questions. Do not invent requirements.
+
+2. GATHER KNOWLEDGE (skill confluence-research)
+   - confluence_searchContent with the Jira key, the system/connector name and the key terms of the requirement. Open the 1-3 best pages with confluence_getContent.
+   - Extract design rules, field mappings, naming and test conventions that the change must follow. Cite the pages (title + link) in the final answer.
+
+3. IDENTIFY THE REPOSITORY (skill jira-repo-context, step B)
+   - Resolve the repository and its default branch (BASE). If it is not certain, ask the user. Never write to a guessed repository.
+   - Check for existing work: search_pull_requests(query: "<KEY> repo:ifw-microservices/<repo>").
+     If an open PR already exists for this key, tell the user and ask whether to add to it; do not open a second PR.
+
+4. LOCATE THE CODE (read-only)
+   - get_repository_tree(owner: ifw-microservices, repo, recursive: true, path_filter: "<module>/") to find the module (multi-module Maven repos: pick the module of the connector/processor named in the Jira).
+   - search_code(query: "<symbol|field|topic> repo:ifw-microservices/<repo>") to find the exact files.
+   - get_file_contents(owner, repo, path, ref: "refs/heads/<BASE>") for every file you will change, plus related tests/config. Read the files completely before editing.
+
+5. DESIGN THE SMALLEST CORRECT CHANGE
+   - Change only what the Jira requires. Follow the existing code style, naming, logging and test patterns you just read.
+   - Add or update unit tests when the repository has tests for the touched code.
+   - Do not reformat, rename or reorganise unrelated code. Preserve the file's existing line endings and indentation.
+   - Never put secrets, tokens or passwords in code.
+
+6. PRESENT PROPOSED CHANGES & ASK USER CONFIRMATION (HUMAN-IN-THE-LOOP - MANDATORY)
+   - NEVER commit, push, or open a pull request without presenting the changes and getting user confirmation first.
+   - Present the proposal clearly to the user:
+     a) Target repository (e.g. `ifw-microservices/<repo>`) and target branch (`feature/<JIRA-KEY>`).
+     b) Summary of changes and rationale based on Jira acceptance criteria and Confluence guidelines.
+     c) File-by-file unified diff in standard ```diff ``` code blocks:
+        Show additions with `+` and deletions with `-` so the user can easily inspect what lines will change.
+     d) Ask for confirmation with a clear call to action:
+        "Please review the proposed file changes above. Reply with 'Accept' / 'Accept & Create PR' (or click Accept in the UI) to proceed with creating the branch and raising the Pull Request, or tell me what to modify."
+   - STOP HERE. Output NO TOOL_CALL lines for writing (no create_branch, no push_files, no create_pull_request) in this turn. Wait for the user's confirmation.
+
+7. ON USER CONFIRMATION: BRANCH, COMMIT, PULL REQUEST
+   - Only when the user responds with acceptance ("Accept", "Proceed", "Yes", "Create PR", "Confirm", "Looks good"):
+     a) create_branch(owner, repo, branch: "feature/<JIRA-KEY>", from_branch: "<BASE>").
+        If feature/<JIRA-KEY> already exists and is not yours to reuse, use feature/<JIRA-KEY>-<2-3 word slug>.
+        NEVER commit to develop, master, main, release/* or any protected branch - the system blocks it.
+     b) push_files(owner, repo, branch, message: "<JIRA-KEY>: <short summary>", files: [{path, content}, ...]) with the COMPLETE new content of each changed file.
+        (create_or_update_file also works for a single file; pass sha when the file already exists.)
+        Use single-line JSON arguments with \n escapes for newlines inside "content" (see TOOL_CALL JSON format in the system prompt).
+     c) create_pull_request(owner, repo, title: "<JIRA-KEY>: <Jira summary>", head: "feature/<JIRA-KEY>", base: "<BASE>", body: <see below>, draft: false)
+        Body (markdown): Jira link (https://jira.se.com/browse/<KEY>), what changed and why, files/modules touched, how it was tested or what to test,
+        Confluence pages used (title + link), open questions/assumptions.
+
+8. VERIFY
+   - pull_request_read(method: "get_files", owner, repo, pullNumber) and, if needed, method: "get_diff".
+   - Confirm the diff contains only the intended changes (no whole-file line-ending or whitespace rewrites, no truncated files).
+   - If something is wrong: fix it with another commit on the same branch (push_files) and verify again. Do not open a second PR.
+
+9. REPORT
+   - PR link, branch, base branch, list of changed files with a one-line reason each, Confluence pages used, tests added, assumptions and anything the reviewer must check.
+   - Do not merge. Do not change the Jira status or add Jira comments unless the user asks you to.
+
+STOP AND ASK (do not write anything) when
+- the repository cannot be identified with confidence, or several repositories are plausible
+- the Jira does not say what to change and Confluence does not clarify it
+- the file to change cannot be found, or the change would touch a very large file you cannot reproduce completely and exactly
+- an open PR or existing branch for the key conflicts with what the user asked
+
+IF A WRITE FAILS
+- Report the exact error (for example 403 permission, 422 branch exists, 409 conflict) and the state reached (branch created? commit pushed?). Offer the next step. Never retry blindly in a loop.

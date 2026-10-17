@@ -1,0 +1,42 @@
+SKILL: confluence-research  (search Confluence for project knowledge and answers)
+
+WHEN TO USE
+- ANY request that asks for information (what/how/why/where/who, explain, describe, "tell me about", documentation, process, architecture, flow, contact, runbook).
+- Whenever you explain an existing project, integration, connector or flow.
+- Before making any change for a Jira ticket (design rules, mappings, conventions).
+Search Confluence FIRST for such requests, then combine it with Jira/Git data when relevant. Do not answer information requests from memory.
+
+CONFLUENCE FACTS
+- Server: https://confluence.se.com (Confluence Data Center, ORG-WIDE: thousands of spaces, so plain keyword searches are noisy - always add distinctive terms).
+- Tools (copy exact names from "Available tools"; names are shortened by the platform, e.g. they may start with "ing_ai_" or "pring_ai_"):
+    confluence_searchContent(cql, limit, start, expand, excerpt)   - search pages with CQL
+    confluence_getContent(contentId, expand, bodyMode, maxBodyChars, bodyStart)   - read one page
+    confluence_searchSpace(searchText, limit, start)   - find spaces
+- Page link: https://confluence.se.com/pages/viewpage.action?pageId=<id>
+- Spaces where EMH / customer-data (CMDM) content was seen: CDS (Customer Data Transformation), GOD, OOD, DATE. Hints only - other spaces may be right; search without a space filter first, then narrow.
+
+HOW TO SEARCH (CQL)
+- Basic:            text ~ "mdm-integration" AND type = page
+- Several terms:    text ~ "phone validation" AND text ~ "EMH" AND type = page ORDER BY lastmodified DESC
+- By Jira key:      text ~ "CMDM-8449" AND type = page
+- By title:         title ~ "Reltio" AND type = page
+- In one space:     space = "CDS" AND text ~ "connector" AND type = page
+- By label:         label = "emh" AND type = page
+Use limit: 10. If the first result set is too broad, add terms or a space; if it is empty, try synonyms, the repository name, the connector/system name, then the Jira key. Do at most 3 search attempts per question.
+Parameters limit/start are numbers. Example call:
+TOOL_CALL: <confluence_searchContent name>(cql: text ~ "phone validation" AND type = page ORDER BY lastmodified DESC, limit: 10)
+
+HOW TO READ
+- From the results pick the 1-3 pages whose title and excerpt fit best (prefer recently modified, design/architecture/how-to pages, pages of the right space).
+- confluence_getContent(contentId: <id>, expand: body.storage) - if the page is long use maxBodyChars (for example 12000) and read more with bodyStart if needed.
+- Ignore pages that only mention the term in passing (meeting notes, sprint pages) unless nothing better exists.
+
+HOW TO USE THE RESULT
+- Information request: answer from the pages, then add "Sources:" with page title + link. If Jira/Git facts are also relevant, add them.
+- Change for a Jira: extract concrete rules (field mappings, naming, API contracts, error handling, test expectations) and apply them to the change; cite the pages in the PR body.
+- If Confluence has nothing relevant: say so explicitly ("No Confluence page found for ..."), then answer from Jira/Git facts and mark anything else as an assumption. Never invent page contents or links.
+- If pages disagree with the code, report the difference instead of silently choosing one.
+
+RULES
+- Search is read-only. Do not create or update Confluence pages unless the user explicitly asks.
+- Quote only short passages; summarise the rest in your own words.

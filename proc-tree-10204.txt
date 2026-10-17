@@ -1,0 +1,19 @@
+
+
+ProcessId       : 10204
+ParentProcessId : 8344
+Name            : java.exe
+CommandLine     : "C:\Program Files\Eclipse 
+                  Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe" 
+                  -XX:TieredStopAtLevel=1 -cp @C:\Users\SESA72~1\AppData\Local\
+                  Temp\spring-boot-8014936631084393957.argfile 
+                  com.schneider.ai.SpringAiMcpPocApplication
+
+ProcessId       : 23084
+ParentProcessId : 10204
+Name            : cmd.exe
+CommandLine     : cmd.exe /c npx -y @atlassian-dc-mcp/confluence
+
+
+
+

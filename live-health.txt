@@ -1,0 +1,1 @@
+Spring AI MCP POC is running

@@ -1,0 +1,13 @@
+{
+    "response":  "Hello, I am ifw-assistant. How can I help you today?",
+    "sessionId":  "99986613-317a-4166-ab34-ae6c314c570a",
+    "provider":  "ifw-assistant",
+    "model":  "gpt-5",
+    "toolsUsed":  [
+
+                  ],
+    "toolResults":  [
+
+                    ],
+    "timestamp":  "2026-08-31T14:34:14.890247500Z"
+}
