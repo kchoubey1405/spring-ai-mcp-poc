@@ -1,78 +1,101 @@
-SKILL: jira-change-to-pr  (implement a Jira change and raise a pull request)
+SKILL: jira-change-to-pr  (implement a Jira change, compile, test, verify and raise a pull request)
 
 WHEN TO USE
 The user asks to make / implement / fix a change for a Jira ticket and raise (create/open) a pull request, e.g.
 "make the change for CMDM-8449 and raise a PR", "implement this Jira and create a pull request in mdm-integration".
 
-THERE IS NO LOCAL CLONE
-The local machine has no checkout and you must not run shell commands. "Clone the repository" means: read the needed code through the Git MCP tools
-(get_repository_tree, get_file_contents) and write the change back with commits on a new branch (create_branch, push_files / create_or_update_file).
-The result is the same: a branch with the change and a pull request.
+BASE BRANCH RULE - ALWAYS develop, NEVER master
+- Default base branch across all repositories is develop.
+- NEVER refer to or use master as a base branch for code analysis or changes. Master branch is not in sync with develop.
+- All code analysis must happen ONLY on the feature branch created from develop.
 
-WORKFLOW - do the steps in order; batch calls that do not depend on each other (max 6 per step); calls inside one step run in order and stop at the first error.
+TOOLS (local workspace + git)
+workspace_cloneRepo, workspace_createBranch, workspace_listFiles, workspace_readFile, workspace_searchText,
+workspace_replaceInFile, workspace_writeFile, workspace_runMaven, workspace_gitStatus, workspace_gitDiff,
+workspace_commitAndPush, workspace_createPullRequest.
+(Git MCP tools spring_ai_mcp_client_git_mcp_server_* are also available).
+
+WORKFLOW - execute the steps in order:
 
 1. UNDERSTAND THE JIRA
    - Use the pre-fetched issue from the prompt (or jira_getIssue). Also jira_getIssueComments if the description is thin.
-   - Write down: what must change, acceptance criteria, affected system/connector/field/API, constraints.
-   - If the requirement is unclear or contradictory: STOP and ask the user specific questions. Do not invent requirements.
+   - Note what must change, acceptance criteria, affected module/connector/field/API, constraints.
+   - If the requirement is unclear: STOP and ask the user specific questions. Do not invent requirements.
 
 2. GATHER KNOWLEDGE (skill confluence-research)
-   - confluence_searchContent with the Jira key, the system/connector name and the key terms of the requirement. Open the 1-3 best pages with confluence_getContent.
-   - Extract design rules, field mappings, naming and test conventions that the change must follow. Cite the pages (title + link) in the final answer.
+   - confluence_searchContent with Jira key, system/connector name, key terms when documentation is needed.
+   - Extract design rules, field mappings, naming and test conventions. Cite pages (title + link).
 
-3. IDENTIFY THE REPOSITORY (skill jira-repo-context, step B)
-   - Resolve the repository and its default branch (BASE). If it is not certain, ask the user. Never write to a guessed repository.
+3. IDENTIFY THE REPOSITORY (skill jira-repo-context)
+   - Resolve repository (e.g. ifw-microservices/<repo>).
    - Check for existing work: search_pull_requests(query: "<KEY> repo:ifw-microservices/<repo>").
-     If an open PR already exists for this key, tell the user and ask whether to add to it; do not open a second PR.
+     If an open PR already exists for this key, inform user and ask whether to add to it; do not open a duplicate PR.
 
-4. LOCATE THE CODE (read-only)
-   - get_repository_tree(owner: ifw-microservices, repo, recursive: true, path_filter: "<module>/") to find the module (multi-module Maven repos: pick the module of the connector/processor named in the Jira).
-   - search_code(query: "<symbol|field|topic> repo:ifw-microservices/<repo>") to find the exact files.
-   - get_file_contents(owner, repo, path, ref: "refs/heads/<BASE>") for every file you will change, plus related tests/config. Read the files completely before editing.
+4. FIRST CREATE FEATURE BRANCH FROM develop (MANDATORY BEFORE ANY CODE ANALYSIS)
+   - The feature branch MUST be created from develop BEFORE analyzing or reading code!
+   - Clone / checkout the repository on develop into the workspace:
+     workspace_cloneRepo(repo: "<repo>", branch: "develop")
+   - Create and check out the feature branch from develop:
+     workspace_createBranch(repo: "<repo>", branch: "feature/<JIRA-KEY>", fromBranch: "develop")
+     (If using Git MCP: create_branch(owner: "ifw-microservices", repo: "<repo>", branch: "feature/<JIRA-KEY>", from_branch: "develop"))
+   - If develop branch is NOT present in the repository, STOP and ASK the user which branch should be used to create the feature branch.
+   - If feature/<JIRA-KEY> already exists and is not yours to reuse, use feature/<JIRA-KEY>-<2-3 word slug>.
+   - NEVER commit to develop, master, main, release/* or any protected branch.
 
-5. DESIGN THE SMALLEST CORRECT CHANGE
-   - Change only what the Jira requires. Follow the existing code style, naming, logging and test patterns you just read.
-   - Add or update unit tests when the repository has tests for the touched code.
-   - Do not reformat, rename or reorganise unrelated code. Preserve the file's existing line endings and indentation.
-   - Never put secrets, tokens or passwords in code.
+5. DO CODE ANALYSIS IN FEATURE BRANCH ONLY
+   - Code analysis MUST be done ONLY in the feature branch created from develop.
+   - NEVER refer to master as a base branch to analyze what code change is required (master is not in sync with develop).
+   - Read and inspect files using workspace tools (the workspace is checked out on the feature branch):
+     workspace_listFiles(repo: "<repo>", path: "<module>/")
+     workspace_searchText(repo: "<repo>", query: "<symbol|field|topic>")
+     workspace_readFile(repo: "<repo>", path: "<path>")
+     (If reading via Git MCP tools, always specify ref: "refs/heads/feature/<JIRA-KEY>").
+   - Design the smallest correct change adhering to existing style, logging, and test patterns.
 
-6. PRESENT PROPOSED CHANGES & ASK USER CONFIRMATION (HUMAN-IN-THE-LOOP - MANDATORY)
-   - NEVER commit, push, or open a pull request without presenting the changes and getting user confirmation first.
+6. SHOW CODE DIFFERENCE & TAKE CONSENT (MANDATORY - HUMAN-IN-THE-LOOP)
+   - NEVER modify files, commit, push, or open a pull request without presenting the changes and getting user consent first.
    - Present the proposal clearly to the user:
-     a) Target repository (e.g. `ifw-microservices/<repo>`) and target branch (`feature/<JIRA-KEY>`).
+     a) Target repository (`ifw-microservices/<repo>`), target feature branch (`feature/<JIRA-KEY>`), and base branch (`develop`).
      b) Summary of changes and rationale based on Jira acceptance criteria and Confluence guidelines.
-     c) File-by-file unified diff in standard ```diff ``` code blocks:
-        Show additions with `+` and deletions with `-` so the user can easily inspect what lines will change.
+     c) File-by-file unified diff in standard ```diff ``` code blocks showing additions (+) and deletions (-).
      d) Ask for confirmation with a clear call to action:
-        "Please review the proposed file changes above. Reply with 'Accept' / 'Accept & Create PR' (or click Accept in the UI) to proceed with creating the branch and raising the Pull Request, or tell me what to modify."
-   - STOP HERE. Output NO TOOL_CALL lines for writing (no create_branch, no push_files, no create_pull_request) in this turn. Wait for the user's confirmation.
+        "Please review the proposed file changes above. Reply with 'Accept' / 'Proceed' (or click Accept in the UI) to make the code changes, compile, test, verify with spring-boot:run, and raise the pull request, or tell me what to modify."
+   - STOP HERE. Output NO tool calls for editing files, committing, or raising PRs in this turn. Wait for user consent.
 
-7. ON USER CONFIRMATION: BRANCH, COMMIT, PULL REQUEST
-   - Only when the user responds with acceptance ("Accept", "Proceed", "Yes", "Create PR", "Confirm", "Looks good"):
-     a) create_branch(owner, repo, branch: "feature/<JIRA-KEY>", from_branch: "<BASE>").
-        If feature/<JIRA-KEY> already exists and is not yours to reuse, use feature/<JIRA-KEY>-<2-3 word slug>.
-        NEVER commit to develop, master, main, release/* or any protected branch - the system blocks it.
-     b) push_files(owner, repo, branch, message: "<JIRA-KEY>: <short summary>", files: [{path, content}, ...]) with the COMPLETE new content of each changed file.
-        (create_or_update_file also works for a single file; pass sha when the file already exists.)
-        Use single-line JSON arguments with \n escapes for newlines inside "content" (see TOOL_CALL JSON format in the system prompt).
-     c) create_pull_request(owner, repo, title: "<JIRA-KEY>: <Jira summary>", head: "feature/<JIRA-KEY>", base: "<BASE>", body: <see below>, draft: false)
-        Body (markdown): Jira link (https://jira.se.com/browse/<KEY>), what changed and why, files/modules touched, how it was tested or what to test,
-        Confluence pages used (title + link), open questions/assumptions.
+7. ON USER CONSENT: MAKE CODE CHANGE (DO NOT REWORK STEPS 1-6)
+   - Only when user responds with acceptance ("Accept", "Proceed", "Yes", "Create PR", "Confirm", "Looks good"):
+   - DO NOT re-read Jira, DO NOT search Confluence, DO NOT re-clone repository, DO NOT re-create branch, and DO NOT re-analyze code.
+   - The feature branch is ALREADY created from develop and the code changes and test cases are ALREADY finalized in Step 6.
+   - Proceed DIRECTLY to apply the approved changes to the files in the feature branch:
+     workspace_replaceInFile(repo: "<repo>", path: "<path>", oldText: "...", newText: "...")
+     or workspace_writeFile(repo: "<repo>", path: "<path>", content: "...")
+     (or push_files if using Git MCP).
 
-8. VERIFY
-   - pull_request_read(method: "get_files", owner, repo, pullNumber) and, if needed, method: "get_diff".
-   - Confirm the diff contains only the intended changes (no whole-file line-ending or whitespace rewrites, no truncated files).
-   - If something is wrong: fix it with another commit on the same branch (push_files) and verify again. Do not open a second PR.
+8. COMPILE AND TEST
+   - Compile and run tests in the local workspace:
+     workspace_runMaven(repo: "<repo>", goals: "clean test", args: "-pl <module> -am")
+     (or without -pl if repository root / multi-module changes).
+   - If compilation or tests fail, see Step 11.
 
-9. REPORT
-   - PR link, branch, base branch, list of changed files with a one-line reason each, Confluence pages used, tests added, assumptions and anything the reviewer must check.
-   - Do not merge. Do not change the Jira status or add Jira comments unless the user asks you to.
+9. RUN LIKE mvn spring-boot:run AND VERIFY LOG
+   - Run the Spring Boot application in the workspace:
+     workspace_runMaven(repo: "<repo>", goals: "spring-boot:run", args: "-pl <module>")
+   - Inspect the logs to verify the application starts up cleanly without errors, port conflicts, or failed bean creation.
+   - If startup or runtime issue occurs, see Step 11.
 
-STOP AND ASK (do not write anything) when
-- the repository cannot be identified with confidence, or several repositories are plausible
-- the Jira does not say what to change and Confluence does not clarify it
-- the file to change cannot be found, or the change would touch a very large file you cannot reproduce completely and exactly
-- an open PR or existing branch for the key conflicts with what the user asked
+10. RAISE PULL REQUEST IF SUCCESSFUL
+    - Verify git status and diff:
+      workspace_gitStatus(repo: "<repo>") and workspace_gitDiff(repo: "<repo>")
+    - Commit and push all changes to origin on the feature branch:
+      workspace_commitAndPush(repo: "<repo>", message: "<JIRA-KEY>: <short summary>")
+    - Open the pull request targeting develop as base branch:
+      workspace_createPullRequest(repo: "<repo>", title: "<JIRA-KEY>: <Jira summary>", head: "feature/<JIRA-KEY>", baseBranch: "develop", body: "<Markdown body with Jira link, what changed, how tested, and runtime log verification>")
+    - Report to user: PR link, branch, base branch (develop), changed files, test results, and runtime log verification.
 
-IF A WRITE FAILS
-- Report the exact error (for example 403 permission, 422 branch exists, 409 conflict) and the state reached (branch created? commit pushed?). Offer the next step. Never retry blindly in a loop.
+11. HANDLE TEST FAILURE, COMPILATION FAILURE, OR RUNTIME ISSUE
+    - If compilation fails, tests fail, or runtime issue occurs during spring-boot:run:
+      * Analyze the error logs and stack traces.
+      * Fix the issue in the code or tests on the feature branch.
+      * MANDATORY: If additional code changes are required beyond what the user previously approved, STOP and TAKE CONSENT AGAIN from the user before proceeding!
+      * Once user consents to additional changes, re-run compile, test, and spring-boot:run verification.
+      * Only raise the pull request when compile, test, and runtime log verification are ALL successful.

@@ -1,0 +1,43 @@
+SKILL: kafka-connect-operations (monitor Kafka Connect connectors and restart failed tasks)
+
+WHEN TO USE
+The user asks about Kafka Connect connectors, failed connector tasks, or requests to restart a failed connector or task, e.g.:
+- "restart failed task 2 of OracleAqSinkConnector"
+- "restart task 2 of OracleAqSinkConnector"
+- "OracleAqSinkConnector task 2 is failed, please restart it"
+- "why is OracleAqSinkConnector failing and restart it"
+- "check kafka connectors and restart any failed tasks"
+
+BACKGROUND & API SPECIFICATION
+Kafka Connect cluster: dynamically configured via KAFKA_CONNECT_URL (default: https://uat.emh.ei.se.com/api/kafka-connect-1)
+Authorization Header: dynamically configured via KAFKA_CONNECT_AUTH (default: Basic U2VFbWhUZWFtOldlbGNvbWUx)
+
+Dynamic restart curl command (created dynamically based on configured host and credentials in .env):
+curl --location --request POST '${KAFKA_CONNECT_URL}/connectors/{connectorName}/tasks/{taskId}/restart' \
+--header 'Authorization: ${KAFKA_CONNECT_AUTH}'
+
+TOOLS (Kafka operations)
+kafka_getConnectorsSummary, kafka_restartConnectorTask, kafka_restartFailedTasks.
+
+WORKFLOW - execute the steps in order:
+
+1. IDENTIFY THE CONNECTOR AND FAILED TASK(S)
+   - If the user specifies connector and task (e.g., OracleAqSinkConnector task 2), note them immediately.
+   - If the task is not specified or general status is asked:
+     Call kafka_getConnectorsSummary(refresh: true) to inspect connector health and identify not-running connectors and their failedTaskIds.
+   - Note which specific tasks are failed (e.g. task 2 of OracleAqSinkConnector).
+
+2. EXECUTE RESTART OF FAILED TASK(S)
+   - For a specific failed task:
+     Call kafka_restartConnectorTask(connector: "<connectorName>", taskId: <taskId>)
+     This executes:
+     POST https://uat.emh.ei.se.com/api/kafka-connect-1/connectors/<connectorName>/tasks/<taskId>/restart
+     with header Authorization: Basic U2VFbWhUZWFtOldlbGNvbWUx.
+   - For multiple failed tasks on a connector:
+     Restart each failed task individually using kafka_restartConnectorTask, or call kafka_restartFailedTasks(connector: "<connectorName>").
+
+3. REPORT STATUS TO USER
+   - Confirm the restart was triggered via POST /connectors/{connectorName}/tasks/{taskId}/restart.
+   - Report HTTP status (204 No Content or 200/202 indicates successful restart trigger).
+   - If an error occurred (e.g. 409 rebalancing or 404 not found), explain the response and recommend next steps.
+   - Remind the user that the right-panel Kafka Connectors card can also be restarted directly via the UI Restart button.

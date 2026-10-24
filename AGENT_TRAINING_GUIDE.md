@@ -100,7 +100,7 @@ Skills in `src/main/resources/prompts/skills/*.txt` are loaded at startup and in
 | Skill | Injected when | Purpose |
 |-------|---------------|---------|
 | `jira-repo-context.txt` | Jira, Git, change request or a Jira key in the prompt | GitHub Enterprise org `ifw-microservices`, branch/PR conventions, repo catalog (snapshot, edit as repos change) |
-| `jira-change-to-pr.txt` | "make the change / raise a PR / implement KEY" | 10-step workflow: Jira, Confluence, repo, code, feature branch, push, PR, verify, report |
+| `jira-change-to-pr.txt` | "make the change / raise a PR / implement KEY" | Workflow: Jira, Confluence, branch from develop first, analyze in feature branch only, show diff, take consent, make changes, compile & test, run spring-boot:run verify logs, raise PR targeting develop |
 | `confluence-research.txt` | Always in agent mode | CQL patterns, space hints (CDS, GOD, OOD, DATE), citing pages |
 
 Agent loop: up to 12 tool rounds per request (8 calls per round). Code-enforced guards: merge/delete/create/fork repo tools are blocked, and commits or PR heads on protected branches (develop, master, main, release/*, hotfix/*) are rejected.
@@ -287,13 +287,28 @@ Served by `DashboardService` (cached 300 s, loaded at startup, last good value k
 | `GET /api/v1/dashboard` | `{jira, pullRequests, kafka, vulnerabilities}` |
 | `GET /api/v1/dashboard/jira` | EMH Jira total + status-wise counts (JQL = `dashboard.jira.jql`, default = chat EMH default JQL) |
 | `GET /api/v1/dashboard/prs` | Open PRs across the org: total + per-project counts |
-| `GET /api/v1/dashboard/kafka` | Kafka Connect: total, running, paused, failed, other, not-running list |
+| `GET /api/v1/dashboard/kafka` | Kafka Connect: total, running, paused, failed, other, not-running list with `failedTasks` and `failedTaskIds` |
+| `POST /api/v1/dashboard/kafka/connectors/{connector}/tasks/{taskId}/restart` | Restart a specific failed task of a connector |
+| `POST /api/v1/dashboard/kafka/connectors/{connector}/restart` | Restart the entire Kafka connector |
+| `POST /api/v1/dashboard/kafka/connectors/{connector}/restart-failed` | Restart all failed tasks of a connector |
 
-All accept `?refresh=true`.
+All `GET` endpoints accept `?refresh=true`.
 
 Properties: `dashboard.jira.jql` (`DASHBOARD_JIRA_JQL`), `dashboard.cache-ttl-seconds` (`DASHBOARD_CACHE_TTL_SECONDS`), plus existing `dashboard.kafka.*`, `dashboard.github.*`, `dashboard.jira.*`.
 
 **Kafka classification:** connector is FAILED if its state is FAILED **or any task is FAILED** (even when other tasks run); PAUSED if state PAUSED; RUNNING if RUNNING; otherwise OTHER.
+
+### Kafka Connector Failed Task Restart (UI & Agent Tool)
+- **UI Right Panel**: Right beside each failed task in the Kafka card, a 1-click **Restart Task X** button triggers the restart directly and refreshes the card.
+- **REST API Call**:
+  ```bash
+  curl --location --request POST 'https://uat.emh.ei.se.com/api/kafka-connect-1/connectors/{connectorName}/tasks/{taskId}/restart' \
+  --header 'Authorization: Basic U2VFbWhUZWFtOldlbGNvbWUx'
+  ```
+- **Agent Tools & Skill (`kafka-connect-operations`)**:
+  - `kafka_getConnectorsSummary(refresh)`: Query connector status and failed tasks.
+  - `kafka_restartConnectorTask(connector, taskId)`: Restart a specific failed task.
+  - `kafka_restartFailedTasks(connector)`: Restart all failed tasks for a connector.
 
 ---
 

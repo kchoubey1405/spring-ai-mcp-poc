@@ -49,12 +49,18 @@ class DashboardServiceTest {
                 json("{\"fields\":{\"status\":{\"name\":\"BACKLOG\"}}}"),
                 json("{\"fields\":{\"status\":{\"name\":\"BACKLOG\"}}}"),
                 json("{\"fields\":{}}"),
+                json("{\"fields\":{\"status\":{\"name\":\"Closed\"}}}"),
+                json("{\"fields\":{\"status\":{\"name\":\"In Production\"}}}"),
+                json("{\"fields\":{\"status\":{\"name\":\"Cancelled\"}}}"),
+                json("{\"fields\":{\"status\":{\"name\":\"Done\"}}}"),
+                json("{\"fields\":{\"status\":{\"name\":\"Resolved\"}}}"),
                 json("{\"fields\":{\"status\":{\"name\":\"In Progress\"}}}"));
         Map<String, Integer> counts = DashboardService.countByStatus(issues);
         assertEquals(List.of("BACKLOG", "In Progress", "Unknown"), List.copyOf(counts.keySet()));
         assertEquals(3, counts.get("BACKLOG"));
         assertEquals(2, counts.get("In Progress"));
         assertEquals(1, counts.get("Unknown"));
+        assertEquals(6, counts.values().stream().mapToInt(Integer::intValue).sum());
     }
 
     @Test
@@ -99,5 +105,32 @@ class DashboardServiceTest {
         assertEquals("ERROR", result.get("status"));
         assertNotNull(result.get("message"));
         assertEquals(null, result.get("total"));
+    }
+
+    @Test
+    void connectorRowExtractsFailedTaskIdsAndTasks() throws Exception {
+        JsonNode status = json("{\"connector\":{\"state\":\"RUNNING\"},\"tasks\":[{\"id\":0,\"state\":\"RUNNING\"},{\"id\":2,\"state\":\"FAILED\"}]}");
+        Map<String, Object> row = DashboardService.connectorRow("OracleAqSinkConnector", status, null);
+
+        assertEquals("OracleAqSinkConnector", row.get("name"));
+        assertEquals("FAILED", row.get("health"));
+        assertEquals("RUNNING", row.get("state"));
+        assertEquals(2, row.get("tasks"));
+
+        @SuppressWarnings("unchecked")
+        List<String> failedTasks = (List<String>) row.get("failedTasks");
+        assertEquals(List.of("task 2"), failedTasks);
+
+        @SuppressWarnings("unchecked")
+        List<Integer> failedTaskIds = (List<Integer>) row.get("failedTaskIds");
+        assertEquals(List.of(2), failedTaskIds);
+    }
+
+    @Test
+    void isKafkaRequestIdentifiesRestartAndConnectorQueries() {
+        assertTrue(AiOrchestrationService.isKafkaRequest("restart task 2 of OracleAqSinkConnector"));
+        assertTrue(AiOrchestrationService.isKafkaRequest("curl POST https://uat.emh.ei.se.com/api/kafka-connect-1/connectors/OracleAqSinkConnector/tasks/2/restart"));
+        assertTrue(AiOrchestrationService.isKafkaRequest("what kafka connectors are currently failed?"));
+        assertTrue(AiOrchestrationService.isKafkaRequest("restart failed kafka connectors"));
     }
 }

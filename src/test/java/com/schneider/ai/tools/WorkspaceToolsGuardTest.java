@@ -62,6 +62,9 @@ class WorkspaceToolsGuardTest {
         List<String> args = WorkspaceTools.buildMavenArguments("clean install", "-DskipTests -pl module-a -U");
         assertEquals(List.of("-B", "-ntp", "clean", "install", "-DskipTests", "-pl", "module-a", "-U"), args);
 
+        List<String> springBootArgs = WorkspaceTools.buildMavenArguments("spring-boot:run", "-pl module-b");
+        assertEquals(List.of("-B", "-ntp", "spring-boot:run", "-pl", "module-b"), springBootArgs);
+
         assertThrows(IllegalArgumentException.class, () -> WorkspaceTools.buildMavenArguments("deploy", null));
         assertThrows(IllegalArgumentException.class, () -> WorkspaceTools.buildMavenArguments("exec:exec", null));
         assertThrows(IllegalArgumentException.class, () -> WorkspaceTools.buildMavenArguments("install", "-s evil.xml"));

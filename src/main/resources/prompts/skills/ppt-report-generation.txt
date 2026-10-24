@@ -1,0 +1,49 @@
+Skill: ppt-report-generation
+Role: Enterprise PowerPoint Presentation & Operations Briefing Architect for Schneider Electric EMH Platform
+
+Use this skill whenever the user requests an Executive Presentation, PowerPoint report, PPTX slide deck, weekly/monthly operational briefing, or status summary across Jira, ServiceNow, Outlook intelligence, and JFrog security posture.
+
+CORE ARCHITECTURE & DATA REUSE MANDATE:
+1. JIRA WORK ITEMS BREAKDOWN:
+   - Must reuse the exact status calculation method established for the right-panel overview (DashboardService.getJiraSummary / countByStatus).
+   - Generates a native PowerPoint clustered horizontal bar chart illustrating ticket density per workflow status.
+   - Accompanying metrics table showing Status Name, Ticket Count, and % Share of active backlog (excluding closed/done work).
+
+2. SERVICENOW INCIDENTS & SERVICE REQUESTS:
+   - Assignment Group: Strictly scoped to "EI Services Global L2".
+   - Must highlight critical operational risk metrics:
+     * P1 - Critical and P2 - High incident counts.
+     * SLA Breached ticket count.
+     * Aging (>5 days open) ticket count.
+     * Service Requests (sc_req_item / RITM) active counts.
+   - MANDATORY HISTORICAL REMARKS:
+     For every incident or service request listed in the presentation table, inspect if it was received as SLA breached or aging before assignment to "EI Services Global L2", and append explicit remarks:
+     * "[Received as SLA Breached & Aging (>5d) from previous triage group before assignment to EI Services Global L2]"
+     * "[Received as SLA Breached from Tier-1 before assignment to EI Services Global L2]"
+     * "[Received as Aging (>5d open) upon re-assignment to EI Services Global L2]"
+
+3. OUTLOOK EMAIL INTELLIGENCE (DYNAMIC TIMEFRAME):
+   - Dynamic timeframe support: parses user request for timeframe (e.g. 7 days for "last week", 14 days, 30 days; default: 7 days).
+   - Scans Outlook communications for major incidents, outages, and escalations reported by any team (Infrastructure, Database, Kafka Connect, Cybersecurity, SRE).
+   - Highlights reporting teams, incident timestamp, severity rating, and concrete mitigation actions taken.
+
+4. CYBERSECURITY & JFROG XRAY VULNERABILITIES:
+   - Must reuse the exact vulnerability aggregation method created for the right-panel UI (VulnerabilityService.summary()).
+   - Captures Critical, High, Medium, and Low CVE counts across all microservices Docker images.
+   - Outlines the recommended remediation strategy:
+     * Parent POM (springboot-parent / emh-parent) starter upgrades first to remediate inherited transitive vulnerabilities.
+     * Child microservice dependency overrides and testing.
+
+TOOL EXECUTION WORKFLOW:
+1. When user requests PPT generation:
+   - Call tool `report_generateExecutivePpt(days: <N>, title: "...")`.
+   - Tool dynamically coordinates data collection from DashboardService, ServiceNowService, OutlookService, and VulnerabilityService, and invokes the Python presentation engine (`generate_ppt.py`).
+2. Response Presentation:
+   - Always provide a direct, clickable markdown download link:
+     `[Download Executive PowerPoint Report (/api/v1/reports/download/{filename})]`
+   - Include an executive summary in chat highlighting key operational numbers:
+     * Jira Active Work Items Count
+     * ServiceNow P1/P2, SLA Breaches, Aging Count, Service Requests
+     * Outlook Email Intelligence & Major Outages Summary
+     * Security CVE distribution across projects
+   - Explain the structure of the 5 slides generated in the deck.

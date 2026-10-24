@@ -8,6 +8,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -50,7 +52,7 @@ public class DashboardService {
 
     /** Same filter as the chat default for "EMH Jira": EMH components/labels, closed and production work excluded. */
     static final String DEFAULT_EMH_JQL = "(Components in (\"EMH\", \"EMH-Middleware\") OR labels in (\"EMH\", \"EMH-Middleware\")) "
-            + "AND status NOT IN (\"Closed\", \"In Production\", \"Pushed to Production\", \"Cancelled\")";
+            + "AND status NOT IN (\"Closed\", \"In Production\", \"Pushed to Production\", \"Cancelled\", \"Done\")";
 
     private static final int JIRA_BATCH = 500;
     private static final int JIRA_MAX_BATCHES = 20;
@@ -86,6 +88,9 @@ public class DashboardService {
 
     @Value("${dashboard.jira.jql:}")
     private String jiraJql = "";
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.schneider.ai.auth.SessionAuthService sessionAuthService;
 
     private final Section jira;
     private final Section pullRequests;
@@ -152,20 +157,156 @@ public class DashboardService {
     // ================================================================== public API
 
     public Map<String, Object> getJiraSummary(boolean force) {
-        return jira.get(force, this::loadJira);
+        return getJiraSummary(force, null);
+    }
+
+    public Map<String, Object> getJiraSummary(boolean force, String sessionId) {
+        String token = resolveJiraToken(sessionId);
+        return jira.get(force, () -> loadJira(token));
     }
 
     public Map<String, Object> getOpenPullRequests(boolean force) {
-        return pullRequests.get(force, this::loadPullRequests);
+        return getOpenPullRequests(force, null);
+    }
+
+    public Map<String, Object> getOpenPullRequests(boolean force, String sessionId) {
+        String token = resolveGithubToken(sessionId);
+        return pullRequests.get(force, () -> loadPullRequests(token));
     }
 
     public Map<String, Object> getKafkaSummary(boolean force) {
         return kafka.get(force, this::loadKafka);
     }
 
+    /**
+     * Restarts a specific task of a Kafka connector:
+     * POST {kafkaConnectUrl}/connectors/{connector}/tasks/{taskId}/restart
+     * with Authorization header.
+     */
+    public Map<String, Object> restartKafkaTask(String connector, int taskId) {
+        String base = kafkaConnectUrl.replaceAll("/+$", "");
+        URI uri = UriComponentsBuilder.fromUriString(base + "/connectors/{connector}/tasks/{taskId}/restart")
+                .buildAndExpand(connector, taskId).toUri();
+        HttpHeaders headers = kafkaHeaders();
+        HttpEntity<String> entity = new HttpEntity<>("{}", headers);
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("connector", connector);
+        result.put("dynamicCurl", buildDynamicConnectorRestartCurl(connector));
+        result.put("taskId", taskId);
+        result.put("dynamicCurl", buildDynamicKafkaRestartCurl(connector, taskId));
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class);
+            int statusCode = response.getStatusCode().value();
+            log.info("Restarted Kafka task: connector={}, taskId={}, status={}", connector, taskId, statusCode);
+            result.put("success", true);
+            result.put("status", "SUCCESS");
+            result.put("httpStatus", statusCode);
+            result.put("message", "Task " + taskId + " of connector " + connector + " restart triggered successfully (HTTP " + statusCode + ")");
+            getKafkaSummary(true);
+        } catch (HttpStatusCodeException ex) {
+            log.error("Failed to restart Kafka task: connector={}, taskId={}, status={}, body={}",
+                    connector, taskId, ex.getStatusCode(), ex.getResponseBodyAsString());
+            result.put("success", false);
+            result.put("status", "ERROR");
+            result.put("httpStatus", ex.getStatusCode().value());
+            result.put("error", "HTTP " + ex.getStatusCode().value() + ": " + ex.getResponseBodyAsString());
+        } catch (Exception ex) {
+            log.error("Failed to restart Kafka task: connector={}, taskId={}, error={}", connector, taskId, ex.getMessage());
+            result.put("success", false);
+            result.put("status", "ERROR");
+            result.put("error", ex.getMessage());
+        }
+        return result;
+    }
+
+    public String buildDynamicKafkaRestartCurl(String connector, int taskId) {
+        String base = kafkaConnectUrl.replaceAll("/+$", "");
+        return String.format("curl --location --request POST '%s/connectors/%s/tasks/%d/restart' \\\n--header 'Authorization: %s'",
+                base, connector, taskId, kafkaAuth);
+    }
+
+    public String buildDynamicConnectorRestartCurl(String connector) {
+        String base = kafkaConnectUrl.replaceAll("/+$", "");
+        return String.format("curl --location --request POST '%s/connectors/%s/restart' \\\n--header 'Authorization: %s'",
+                base, connector, kafkaAuth);
+    }
+
+    /**
+     * Restarts the Kafka connector itself:
+     * POST {kafkaConnectUrl}/connectors/{connector}/restart
+     */
+    public Map<String, Object> restartKafkaConnector(String connector) {
+        String base = kafkaConnectUrl.replaceAll("/+$", "");
+        URI uri = UriComponentsBuilder.fromUriString(base + "/connectors/{connector}/restart")
+                .buildAndExpand(connector).toUri();
+        HttpHeaders headers = kafkaHeaders();
+        HttpEntity<String> entity = new HttpEntity<>("{}", headers);
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("connector", connector);
+        result.put("dynamicCurl", buildDynamicConnectorRestartCurl(connector));
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class);
+            int statusCode = response.getStatusCode().value();
+            log.info("Restarted Kafka connector: connector={}, status={}", connector, statusCode);
+            result.put("success", true);
+            result.put("status", "SUCCESS");
+            result.put("httpStatus", statusCode);
+            result.put("message", "Connector " + connector + " restart triggered successfully (HTTP " + statusCode + ")");
+            getKafkaSummary(true);
+        } catch (HttpStatusCodeException ex) {
+            log.error("Failed to restart Kafka connector: connector={}, status={}, body={}",
+                    connector, ex.getStatusCode(), ex.getResponseBodyAsString());
+            result.put("success", false);
+            result.put("status", "ERROR");
+            result.put("httpStatus", ex.getStatusCode().value());
+            result.put("error", "HTTP " + ex.getStatusCode().value() + ": " + ex.getResponseBodyAsString());
+        } catch (Exception ex) {
+            log.error("Failed to restart Kafka connector: connector={}, error={}", connector, ex.getMessage());
+            result.put("success", false);
+            result.put("status", "ERROR");
+            result.put("error", ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Restarts all failed tasks of a given connector, or across all connectors if connector is blank.
+     */
+    public Map<String, Object> restartFailedTasks(String connector) {
+        Map<String, Object> summary = getKafkaSummary(false);
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> notRunning = (List<Map<String, Object>>) summary.get("notRunning");
+        List<Map<String, Object>> restarted = new ArrayList<>();
+        if (notRunning != null) {
+            for (Map<String, Object> row : notRunning) {
+                String name = String.valueOf(row.get("name"));
+                if (connector != null && !connector.isBlank() && !connector.equalsIgnoreCase(name)) {
+                    continue;
+                }
+                @SuppressWarnings("unchecked")
+                List<Integer> failedIds = (List<Integer>) row.get("failedTaskIds");
+                if (failedIds != null && !failedIds.isEmpty()) {
+                    for (int taskId : failedIds) {
+                        restarted.add(restartKafkaTask(name, taskId));
+                    }
+                }
+            }
+        }
+        Map<String, Object> res = new LinkedHashMap<>();
+        res.put("connector", connector != null && !connector.isBlank() ? connector : "ALL");
+        res.put("restartedCount", restarted.size());
+        res.put("success", !restarted.isEmpty() && restarted.stream().allMatch(r -> Boolean.TRUE.equals(r.get("success"))));
+        res.put("tasks", restarted);
+        return res;
+    }
+
     // ================================================================== JIRA
 
     private Map<String, Object> loadJira() {
+        return loadJira(resolveJiraToken(null));
+    }
+
+    private Map<String, Object> loadJira(String token) {
         String jql = jiraJql == null || jiraJql.isBlank() ? DEFAULT_EMH_JQL : jiraJql.trim();
         List<JsonNode> issues = new ArrayList<>();
         int total = 0;
@@ -177,7 +318,7 @@ public class DashboardService {
                     .queryParam("startAt", startAt)
                     .queryParam("maxResults", JIRA_BATCH)
                     .encode().buildAndExpand(jql).toUri();
-            JsonNode body = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(jiraHeaders()), JsonNode.class).getBody();
+            JsonNode body = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(jiraHeaders(token)), JsonNode.class).getBody();
             if (body == null) {
                 break;
             }
@@ -201,9 +342,12 @@ public class DashboardService {
             statuses.add(row);
         });
 
+        int totalCount = statuses.stream().mapToInt(row -> ((Number) row.get("count")).intValue()).sum();
+
         Map<String, Object> result = new LinkedHashMap<>();
-        result.put("total", total);
-        result.put("counted", issues.size());
+        result.put("total", totalCount);
+        result.put("counted", totalCount);
+        result.put("jiraSearchTotal", total);
         result.put("statuses", statuses);
         result.put("jql", jql);
         result.put("url", jiraBaseUrl.replaceAll("/+$", "") + "/issues/?jql="
@@ -229,7 +373,13 @@ public class DashboardService {
             return false;
         }
         String normalized = status.trim().toLowerCase(Locale.ROOT);
-        return normalized.contains("pushed to production")
+        return normalized.equals("closed")
+                || normalized.equals("cancelled")
+                || normalized.equals("canceled")
+                || normalized.equals("done")
+                || normalized.equals("resolved")
+                || normalized.equals("completed")
+                || normalized.contains("pushed to production")
                 || normalized.contains("in production")
                 || normalized.equals("production");
     }
@@ -237,15 +387,19 @@ public class DashboardService {
     // ================================================================== GITHUB: open pull requests
 
     private Map<String, Object> loadPullRequests() {
+        return loadPullRequests(resolveGithubToken(null));
+    }
+
+    private Map<String, Object> loadPullRequests(String token) {
         Map<String, Integer> perRepo;
         int total;
         try {
-            Map.Entry<Integer, Map<String, Integer>> found = searchOpenPullRequests();
+            Map.Entry<Integer, Map<String, Integer>> found = searchOpenPullRequests(token);
             total = found.getKey();
             perRepo = found.getValue();
         } catch (Exception ex) {
             log.warn("GitHub search for open pull requests failed ({}); counting repository by repository", ex.getMessage());
-            perRepo = countPerRepository();
+            perRepo = countPerRepository(token);
             total = perRepo.values().stream().mapToInt(Integer::intValue).sum();
         }
 
@@ -267,6 +421,10 @@ public class DashboardService {
 
     /** One search over the whole organisation ("is:pr is:open org:X"), grouped by repository. */
     private Map.Entry<Integer, Map<String, Integer>> searchOpenPullRequests() {
+        return searchOpenPullRequests(resolveGithubToken(null));
+    }
+
+    private Map.Entry<Integer, Map<String, Integer>> searchOpenPullRequests(String token) {
         Map<String, Integer> perRepo = new LinkedHashMap<>();
         int total = 0;
         int collected = 0;
@@ -276,7 +434,7 @@ public class DashboardService {
                     .queryParam("per_page", SEARCH_PAGE)
                     .queryParam("page", page)
                     .encode().buildAndExpand("is:pr is:open org:" + githubOrg).toUri();
-            JsonNode body = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(githubHeaders()), JsonNode.class).getBody();
+            JsonNode body = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(githubHeaders(token)), JsonNode.class).getBody();
             if (body == null) {
                 throw new IllegalStateException("empty search response");
             }
@@ -301,13 +459,17 @@ public class DashboardService {
 
     /** Fallback when search is unavailable or the organisation has more than 1000 open pull requests. */
     private Map<String, Integer> countPerRepository() {
+        return countPerRepository(resolveGithubToken(null));
+    }
+
+    private Map<String, Integer> countPerRepository(String token) {
         Map<String, Integer> perRepo = new LinkedHashMap<>();
         List<String> repos = new ArrayList<>();
         String api = githubBaseUrl.replaceAll("/+$", "");
         for (int page = 1; page <= 20; page++) {
             URI uri = UriComponentsBuilder.fromUriString(api + "/orgs/" + githubOrg + "/repos")
                     .queryParam("per_page", 100).queryParam("page", page).queryParam("type", "all").build().toUri();
-            JsonNode body = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(githubHeaders()), JsonNode.class).getBody();
+            JsonNode body = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(githubHeaders(token)), JsonNode.class).getBody();
             if (body == null || !body.isArray() || body.isEmpty()) {
                 break;
             }
@@ -320,7 +482,7 @@ public class DashboardService {
         try {
             Map<String, Future<Integer>> futures = new LinkedHashMap<>();
             for (String repo : repos) {
-                futures.put(repo, pool.submit(() -> countOpenPullRequests(api, repo)));
+                futures.put(repo, pool.submit(() -> countOpenPullRequests(api, repo, token)));
             }
             for (Map.Entry<String, Future<Integer>> entry : futures.entrySet()) {
                 try {
@@ -338,12 +500,12 @@ public class DashboardService {
         return perRepo;
     }
 
-    private int countOpenPullRequests(String api, String repo) {
+    private int countOpenPullRequests(String api, String repo, String token) {
         int count = 0;
         for (int page = 1; page <= 50; page++) {
             URI uri = UriComponentsBuilder.fromUriString(api + "/repos/" + githubOrg + "/" + repo + "/pulls")
                     .queryParam("state", "open").queryParam("per_page", 100).queryParam("page", page).build().toUri();
-            JsonNode body = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(githubHeaders()), JsonNode.class).getBody();
+            JsonNode body = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(githubHeaders(token)), JsonNode.class).getBody();
             int size = body != null && body.isArray() ? body.size() : 0;
             count += size;
             if (size < 100) {
@@ -422,10 +584,17 @@ public class DashboardService {
         result.put("failed", counts.getOrDefault("FAILED", 0));
         result.put("other", counts.getOrDefault("OTHER", 0) + counts.getOrDefault("UNKNOWN", 0));
         result.put("notRunning", notRunning);
+        result.put("url", base);
+        result.put("restartTaskCurlTemplate", String.format(
+                "curl --location --request POST '%s/connectors/{connector}/tasks/{taskId}/restart' \\\n--header 'Authorization: %s'",
+                base, kafkaAuth));
+        result.put("restartConnectorCurlTemplate", String.format(
+                "curl --location --request POST '%s/connectors/{connector}/restart' \\\n--header 'Authorization: %s'",
+                base, kafkaAuth));
         return result;
     }
 
-    private static Map<String, Object> connectorRow(String name, JsonNode status, String error) {
+    static Map<String, Object> connectorRow(String name, JsonNode status, String error) {
         Map<String, Object> row = new LinkedHashMap<>();
         row.put("name", name);
         if (status == null) {
@@ -437,15 +606,26 @@ public class DashboardService {
         row.put("health", classify(status));
         row.put("state", status.path("connector").path("state").asText("UNKNOWN"));
         List<String> failedTasks = new ArrayList<>();
+        List<Integer> failedTaskIds = new ArrayList<>();
         int tasks = 0;
         for (JsonNode task : status.path("tasks")) {
             tasks++;
             if ("FAILED".equalsIgnoreCase(task.path("state").asText())) {
-                failedTasks.add("task " + task.path("id").asText("?"));
+                String idStr = task.path("id").asText("?");
+                failedTasks.add("task " + idStr);
+                int idNum = task.path("id").asInt(-1);
+                if (idNum >= 0) {
+                    failedTaskIds.add(idNum);
+                } else {
+                    try {
+                        failedTaskIds.add(Integer.parseInt(idStr));
+                    } catch (NumberFormatException ignored) {}
+                }
             }
         }
         row.put("tasks", tasks);
         row.put("failedTasks", failedTasks);
+        row.put("failedTaskIds", failedTaskIds);
         return row;
     }
 
@@ -482,22 +662,68 @@ public class DashboardService {
         };
     }
 
-    // ================================================================== HTTP headers
+    // ================================================================== HTTP headers & Token Resolution
+
+    private String resolveJiraToken(String sessionId) {
+        if (sessionAuthService != null && sessionId != null && !sessionId.isBlank()) {
+            java.util.Optional<String> token = sessionAuthService.getToken(sessionId, "jira");
+            if (token.isPresent() && !token.get().isBlank()) {
+                return token.get();
+            }
+        }
+        if (sessionAuthService != null) {
+            String fb = sessionAuthService.getFallbackTokenForService("jira");
+            if (fb != null && !fb.isBlank()) {
+                return fb;
+            }
+        }
+        return jiraToken != null && !jiraToken.isBlank() ? jiraToken : "";
+    }
+
+    private String resolveGithubToken(String sessionId) {
+        if (sessionAuthService != null && sessionId != null && !sessionId.isBlank()) {
+            java.util.Optional<String> token = sessionAuthService.getToken(sessionId, "github_enterprise");
+            if (token.isPresent() && !token.get().isBlank()) {
+                return token.get();
+            }
+            java.util.Optional<String> gitToken = sessionAuthService.getToken(sessionId, "git");
+            if (gitToken.isPresent() && !gitToken.get().isBlank()) {
+                return gitToken.get();
+            }
+        }
+        if (sessionAuthService != null) {
+            String fb = sessionAuthService.getFallbackTokenForService("github_enterprise");
+            if (fb != null && !fb.isBlank()) {
+                return fb;
+            }
+        }
+        return githubToken != null && !githubToken.isBlank() ? githubToken : "";
+    }
 
     private HttpHeaders jiraHeaders() {
+        return jiraHeaders(null);
+    }
+
+    private HttpHeaders jiraHeaders(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
-        if (jiraToken != null && !jiraToken.isBlank()) {
-            headers.set("Authorization", "Bearer " + jiraToken);   // Jira Data Center personal access token
+        String actToken = token != null && !token.isBlank() ? token : resolveJiraToken(null);
+        if (actToken != null && !actToken.isBlank()) {
+            headers.set("Authorization", "Bearer " + actToken.trim());   // Jira Data Center personal access token
         }
         return headers;
     }
 
     private HttpHeaders githubHeaders() {
+        return githubHeaders(null);
+    }
+
+    private HttpHeaders githubHeaders(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/vnd.github.v3+json");
-        if (githubToken != null && !githubToken.isBlank()) {
-            headers.set("Authorization", "token " + githubToken);
+        String actToken = token != null && !token.isBlank() ? token : resolveGithubToken(null);
+        if (actToken != null && !actToken.isBlank()) {
+            headers.set("Authorization", "token " + actToken.trim());
         }
         return headers;
     }
@@ -505,6 +731,7 @@ public class DashboardService {
     private HttpHeaders kafkaHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
+        headers.set("Content-Type", "application/json");
         if (kafkaAuth != null && !kafkaAuth.isBlank()) {
             headers.set("Authorization", kafkaAuth);
         }
@@ -528,11 +755,11 @@ public class DashboardService {
 
         Map<String, Object> get(boolean force, Supplier<Map<String, Object>> loader) {
             Map<String, Object> current = value;
-            if (!force && current != null && fresh()) {
+            if (!force && current != null && !"ERROR".equals(current.get("status")) && fresh()) {
                 return current;
             }
             synchronized (lock) {
-                if (!force && value != null && fresh()) {
+                if (!force && value != null && !"ERROR".equals(value.get("status")) && fresh()) {
                     return value;
                 }
                 try {
@@ -548,7 +775,7 @@ public class DashboardService {
                     String reason = ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage();
                     log.warn("Dashboard section '{}' could not be loaded: {}", name, reason);
                     Map<String, Object> previous = value;
-                    if (previous != null) {
+                    if (previous != null && !"ERROR".equals(previous.get("status"))) {
                         Map<String, Object> stale = new LinkedHashMap<>(previous);
                         stale.put("stale", true);
                         stale.put("message", "Showing the last successful load. Refresh failed: " + reason);

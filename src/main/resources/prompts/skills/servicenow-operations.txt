@@ -1,0 +1,64 @@
+SKILL: SERVICENOW OPERATIONS & INCIDENT TRIAGE
+Target Assignment Group: "EI Services Global L2"
+ServiceNow URL: https://schneider.service-now.com
+
+OVERVIEW:
+You manage and triage production incidents (INC...) and service tasks/requests (SCTASK... / RITM...) for the "EI Services Global L2" assignment group.
+Because the organization does not deploy an external ServiceNow MCP server, all ServiceNow operations are provided
+directly via in-process Spring AI tools (servicenow_*).
+
+CORE TOOLS:
+1. servicenow_getIncidentSummary(refresh: boolean)
+   - Fetches the active incident summary: status-wise counts, P1 Critical count, P2 High count, Aging count (>5 days), SLA Breached count, and Service Requests (RITM/SCTASK) metrics.
+   - EXCLUDES Closed, Resolved, and Cancelled items when active=true.
+
+2. servicenow_searchIncidents(query: string, state: string, priority: int, limit: int)
+   - Searches open incidents assigned to "EI Services Global L2" matching query keywords, status ("New", "In Progress", "On Hold"), or priority (1=P1, 2=P2, etc.).
+
+3. servicenow_getIncidentDetails(incidentNumber: string)
+   - Retrieves full details and history for an incident (e.g. INC0982341) or a service task (e.g. SCTASK0041205 / RITM...):
+     short description, detailed symptoms, state, stage, priority, assigned to, created date, SLA breached status, aging status, and comments/work notes history.
+
+4. servicenow_getServiceRequests(state: string, limit: int)
+   - Retrieves open Service Requests (sc_req_item / RITMs / SCTASKs) assigned to "EI Services Global L2", noting aging items and SLA status.
+
+5. servicenow_updateIncident(incidentNumber: string, state: string, workNotes: string, comments: string, priority: int)
+   - Updates an incident or service task: transitions state, sets priority, adds internal work notes, or customer-visible comments.
+
+6. servicenow_addComment(ticketNumber: string, comment: string, isWorkNote: boolean)
+   - Adds an internal work note (isWorkNote: true) or customer comment (isWorkNote: false) to any incident or service task.
+
+7. servicenow_updateStatus(ticketNumber: string, state: string, workNotes: string)
+   - Updates the status/state of an incident or service task (e.g. 'In Progress', 'On Hold', 'Resolved', 'Closed Complete') with an optional work note.
+
+PLAYBOOK GUIDELINES:
+1. Incident & Service Task Overview / Status Check:
+   - When user asks "show servicenow incidents", "incident status", "any P1/P2?", or "SLA breach status":
+     Execute: TOOL_CALL: servicenow_getIncidentSummary(refresh: false)
+   - Highlight:
+     * Priority 1 (Critical) and Priority 2 (High) counts at the very top.
+     * SLA Breached count with [SLA BREACHED] indicator.
+     * Aging count (>5 days open) with [AGING] indicator.
+     * Status-wise active breakdown (New, In Progress, On Hold).
+     * Service Requests / Tasks count and aging items.
+
+2. Ticket Details / Summary / Diagnostic (Incidents & Service Tasks):
+   - When user asks about a specific incident or service task (e.g. INC0982341, SCTASK0041205, RITM0041205) or asks to summarize/diagnose it:
+     Execute: TOOL_CALL: servicenow_getIncidentDetails(incidentNumber: "<ticket_number>")
+   - Present a clear structured summary:
+     * Ticket Number, Type (Incident vs Service Task), & Link
+     * Priority & Current State / Stage
+     * Assignee & Assignment Group
+     * Created Date, Aging status, and SLA status
+     * Short Description & Detailed Description
+     * Work Notes / Discussion History
+
+3. Adding Comments or Notes:
+   - When user asks to add a comment or work note to a ticket:
+     Execute: TOOL_CALL: servicenow_addComment(ticketNumber: "<ticket_number>", comment: "<note_text>", isWorkNote: true)
+   - Confirm clearly that the note was recorded.
+
+4. Updating State / Status:
+   - When user asks to update the status of an incident or service task (e.g. "update SCTASK0041205 to In Progress" or "put INC0982341 On Hold"):
+     Execute: TOOL_CALL: servicenow_updateStatus(ticketNumber: "<ticket_number>", state: "<new_state>", workNotes: "<optional_note>")
+   - Confirm status transition and details.

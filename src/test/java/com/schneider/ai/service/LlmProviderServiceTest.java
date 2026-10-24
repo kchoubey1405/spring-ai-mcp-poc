@@ -66,7 +66,7 @@ class LlmProviderServiceTest {
     void resolvesExplicitAntigravityProvider() {
         LlmProviderService resolved = orchestrationService.resolveProvider("antigravity");
         assertNotNull(resolved);
-        assertEquals("antigravity", resolved.getProviderName());
+        assertEquals("antigravity-cli", resolved.getProviderName());
         assertEquals("gemini-3.8-flash-high", resolved.getModel());
     }
 
@@ -182,5 +182,16 @@ class LlmProviderServiceTest {
         assertNotNull(doneEvent.data());
         assertNotNull(doneEvent.data().getResponse());
         assertTrue(doneEvent.data().getResponse().getResponse().contains("Hello, I am EMH AI ASSISTANT"));
+    }
+
+    @Test
+    void antigravityServiceExecutesPromptSuccessfully() throws Exception {
+        if (!antigravityService.isAvailable()) {
+            return;
+        }
+        String response = antigravityService.sendAndWait("test-live", "Reply with exactly: PONG");
+        assertNotNull(response);
+        assertFalse(response.isBlank());
+        assertTrue(response.contains("PONG"));
     }
 }

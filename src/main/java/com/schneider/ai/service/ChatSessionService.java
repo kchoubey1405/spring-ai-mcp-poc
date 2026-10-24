@@ -27,7 +27,7 @@ public class ChatSessionService {
     private final Duration sessionTtl;
 
     public ChatSessionService(
-            @Value("${ai.session.ttl-minutes:5}") int ttlMinutes) {
+            @Value("${ai.session.ttl-minutes:60}") int ttlMinutes) {
         this.sessionTtl = Duration.ofMinutes(ttlMinutes);
         log.info("Chat session TTL set to {} minutes", ttlMinutes);
     }

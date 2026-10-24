@@ -10,7 +10,8 @@ GITHUB ENTERPRISE FACTS
 - Git tools are named spring_ai_mcp_client_git_mcp_server_<tool>; copy the exact full name from "Available tools".
 - Branch convention: feature/<JIRA-KEY>   (examples seen: feature/CMDM-8449, feature/INTSOL-61375)
 - PR title convention: "<JIRA-KEY>: <short summary>"   (examples: "CMDM-8449: EMH - Phone Validation V2 API creation")
-- PRs target the repository's default branch (see catalog). Most integration repos use develop; do not assume - check.
+- Default branch is develop: ALWAYS create feature branch from develop (from_branch: develop) and ALWAYS raise the pull request targeting develop as base branch to merge the code into develop. NEVER refer to or use master as a base branch for code analysis or changes (master is not in sync with develop).
+- If develop branch is NOT present in the repository, STOP and ASK the user which branch should be used to create the feature branch.
 
 STEP A - GET THE JIRA DATA
 - One ticket: use the pre-fetched issue if it is in the prompt, otherwise jira_getIssue(issueKey: KEY).
@@ -44,7 +45,7 @@ Report in this order, as short bullets or a table:
 2. Repository: ifw-microservices/<repo> (link https://github.schneider-electric.com/ifw-microservices/<repo>), default branch
 3. Git state: branches and PRs for this key (number, title, state, link) or "no branch/PR found"
 4. Relevant files/modules, when asked or when they help
-5. Next step you can take (e.g. "I can implement this and raise a PR")
+5. Next step you can take: If the user only asked for information or status, report facts only. Do NOT generate proposed code diffs or request change confirmation in information queries. (You may suggest: "If you want me to implement this and raise a PR, let me know.")
 For a LIST of tickets: do the Git lookup only for the 5 most relevant tickets (batch up to 6 calls per step), say which ones were checked, and offer the rest on request.
 
 REPOSITORY CATALOG (snapshot 2026-10-02, org ifw-microservices, default branch in brackets - verify with search_repositories if unsure)

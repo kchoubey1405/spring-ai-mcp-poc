@@ -31,13 +31,13 @@ import java.util.List;
  * Certificate and host name verification stay fully enabled; nothing is switched off.
  */
 @Slf4j
-final class TlsTrust {
+public final class TlsTrust {
 
     private TlsTrust() {
     }
 
     /** Builds an SSL context that trusts all certificates (ideal for internal dev/UAT servers with self-signed certs). */
-    static SSLContext insecureContext() {
+    public static SSLContext insecureContext() {
         try {
             SSLContext context = SSLContext.getInstance("TLS");
             context.init(null, new TrustManager[]{new X509TrustManager() {
@@ -57,7 +57,7 @@ final class TlsTrust {
     }
 
     /** SSL context trusting JDK defaults + OS store (when {@code useOsStore}) + the optional trust store file. */
-    static SSLContext context(boolean useOsStore, String trustStorePath, String trustStorePassword) {
+    public static SSLContext context(boolean useOsStore, String trustStorePath, String trustStorePassword) {
         try {
             List<X509TrustManager> managers = new ArrayList<>();
             addDefault(managers, null);

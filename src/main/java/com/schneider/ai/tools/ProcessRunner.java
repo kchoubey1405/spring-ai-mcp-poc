@@ -14,6 +14,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -45,6 +46,16 @@ final class ProcessRunner {
      */
     static Result run(List<String> command, Path cwd, Map<String, String> extraEnv, Duration timeout,
                       Pattern matchPattern, Path logFile, UnaryOperator<String> scrub) throws IOException, InterruptedException {
+        return run(command, cwd, extraEnv, timeout, matchPattern, logFile, scrub, null, null);
+    }
+
+    /**
+     * @param earlyExitSuccessPattern if matched in output, process is cleanly stopped and considered successful (e.g. spring-boot:run startup)
+     * @param earlyExitFailurePattern if matched in output, process is cleanly stopped and considered failed
+     */
+    static Result run(List<String> command, Path cwd, Map<String, String> extraEnv, Duration timeout,
+                      Pattern matchPattern, Path logFile, UnaryOperator<String> scrub,
+                      Pattern earlyExitSuccessPattern, Pattern earlyExitFailurePattern) throws IOException, InterruptedException {
         ProcessBuilder builder = new ProcessBuilder(command);
         builder.directory(cwd.toFile());
         builder.redirectErrorStream(true);
@@ -55,6 +66,9 @@ final class ProcessRunner {
 
         Deque<String> tail = new ArrayDeque<>();
         List<String> matches = new ArrayList<>();
+        AtomicBoolean earlySuccess = new AtomicBoolean(false);
+        AtomicBoolean earlyFailure = new AtomicBoolean(false);
+
         Thread reader = new Thread(() -> {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
                  BufferedWriter log = logFile == null ? null : Files.newBufferedWriter(logFile, StandardCharsets.UTF_8)) {
@@ -73,6 +87,15 @@ final class ProcessRunner {
                     if (log != null) {
                         log.write(clean);
                         log.newLine();
+                        log.flush();
+                    }
+                    if (earlyExitSuccessPattern != null && earlyExitSuccessPattern.matcher(clean).find()) {
+                        earlySuccess.set(true);
+                        break;
+                    }
+                    if (earlyExitFailurePattern != null && earlyExitFailurePattern.matcher(clean).find()) {
+                        earlyFailure.set(true);
+                        break;
                     }
                 }
             } catch (IOException ignored) {
@@ -82,15 +105,40 @@ final class ProcessRunner {
         reader.setDaemon(true);
         reader.start();
 
-        boolean finished = process.waitFor(timeout.toMillis(), TimeUnit.MILLISECONDS);
+        long deadline = System.currentTimeMillis() + timeout.toMillis();
+        boolean finished = false;
+        while (System.currentTimeMillis() < deadline) {
+            if (process.waitFor(200, TimeUnit.MILLISECONDS)) {
+                finished = true;
+                break;
+            }
+            if (earlySuccess.get() || earlyFailure.get()) {
+                Thread.sleep(800);
+                process.descendants().forEach(ProcessHandle::destroyForcibly);
+                process.destroyForcibly();
+                process.waitFor(5, TimeUnit.SECONDS);
+                finished = true;
+                break;
+            }
+        }
+
         if (!finished) {
             process.descendants().forEach(ProcessHandle::destroyForcibly);
             process.destroyForcibly();
             process.waitFor(10, TimeUnit.SECONDS);
         }
         reader.join(5000);
+        int exitCode;
+        if (earlySuccess.get()) {
+            exitCode = 0;
+        } else if (earlyFailure.get()) {
+            exitCode = 1;
+        } else {
+            exitCode = finished ? process.exitValue() : -1;
+        }
+        boolean timedOut = !finished && !earlySuccess.get() && !earlyFailure.get();
         synchronized (tail) {
-            return new Result(finished ? process.exitValue() : -1, !finished, System.currentTimeMillis() - start,
+            return new Result(exitCode, timedOut, System.currentTimeMillis() - start,
                     new ArrayList<>(tail), new ArrayList<>(matches));
         }
     }

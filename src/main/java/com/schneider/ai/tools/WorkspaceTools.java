@@ -44,7 +44,8 @@ public class WorkspaceTools {
     static final Pattern FEATURE_BRANCH = Pattern.compile("^feature/[A-Za-z0-9][A-Za-z0-9._-]*(/[A-Za-z0-9][A-Za-z0-9._-]*)*$");
     static final Set<String> MAVEN_GOALS = Set.of("clean", "validate", "compile", "test-compile", "test", "package",
             "verify", "install", "dependency:tree", "dependency:resolve", "dependency:list", "dependency:analyze",
-            "versions:display-dependency-updates", "versions:display-property-updates", "help:effective-pom");
+            "versions:display-dependency-updates", "versions:display-property-updates", "help:effective-pom",
+            "spring-boot:run", "spring-boot:start", "spring-boot:stop");
     private static final Pattern MAVEN_FLAG = Pattern.compile(
             "^(-q|-B|-U|-o|-e|-am|-amd|-fae|-fn|-ff|-ntp|--fail-at-end|--fail-never|--also-make|--also-make-dependents|"
                     + "--batch-mode|--quiet|--update-snapshots|--offline|--no-transfer-progress)$");
@@ -116,18 +117,18 @@ public class WorkspaceTools {
     // =====================================================================================================
 
     @Tool(name = "workspace_cloneRepo", description = """
-            Clone (or refresh) an organisation Git repository into the local workspace and check out its latest default
-            branch (develop/master/main). Always call this first when code has to be read or changed. Returns the local
+            Clone (or refresh) an organisation Git repository into the local workspace and check out develop
+            (or the specified branch). Always call this first when code has to be read or changed. Returns the local
             state: branch, commit, root files, Maven modules, java version and the base image from the root pom.
             If the repository is already in the workspace it is reset to the latest remote state (local changes are
             discarded).""")
     public Map<String, Object> cloneRepo(
             @ToolParam(description = "Repository name in the organisation, e.g. mdm-integration") String repo,
-            @ToolParam(required = false, description = "Branch to check out; default = the repository's default branch") String branch) {
+            @ToolParam(required = false, description = "Branch to check out; default = develop") String branch) {
         return guarded(() -> {
             String name = validateRepo(repo);
             JsonNode info = githubGet("/repos/" + githubOrg + "/" + name);
-            String defaultBranch = info.path("default_branch").asText("master");
+            String defaultBranch = "develop";
             String base = notBlank(branch) ? branch.trim() : defaultBranch;
             validateRef(base);
             Path root = root();
@@ -135,15 +136,42 @@ public class WorkspaceTools {
             Path dir = root.resolve(name);
             String url = githubWeb + "/" + githubOrg + "/" + name + ".git";
             if (!Files.isDirectory(dir.resolve(".git"))) {
-                requireOk(git(root, Duration.ofMinutes(15), "clone", "--depth", "50", "--single-branch", "--branch", base,
-                        url, name), "git clone");
+                ProcessRunner.Result cloneRes = git(root, Duration.ofMinutes(15), "clone", "--depth", "50", "--single-branch", "--branch", base,
+                        url, name);
+                if (!cloneRes.success() && !notBlank(branch)) {
+                    // If develop is not present on the repo and no branch was explicitly requested, fallback to repo default branch
+                    String repoDef = info.path("default_branch").asText("master");
+                    base = repoDef;
+                    requireOk(git(root, Duration.ofMinutes(15), "clone", "--depth", "50", "--single-branch", "--branch", base,
+                            url, name), "git clone");
+                } else {
+                    requireOk(cloneRes, "git clone");
+                }
             } else {
                 String origin = requireOk(git(dir, Duration.ofMinutes(1), "remote", "get-url", "origin"), "git remote").trim();
                 if (!origin.equalsIgnoreCase(url)) {
                     throw new IllegalStateException("Workspace folder " + name + " belongs to another remote (" + origin + ")");
                 }
-                requireOk(git(dir, Duration.ofMinutes(5), "fetch", "--depth", "50", "origin",
-                        "+refs/heads/" + base + ":refs/remotes/origin/" + base), "git fetch");
+                String current = currentBranch(dir);
+                if (current.startsWith("feature/") && !notBlank(branch)) {
+                    // Fast-path: repository is already cloned and currently on the active feature branch; avoid wiping local changes
+                    String head = requireOk(git(dir, Duration.ofMinutes(1), "rev-parse", "--short", "HEAD"), "git rev-parse").trim();
+                    Map<String, Object> result = ok("repo", name, "path", dir.toString(), "branch", current,
+                            "defaultBranch", defaultBranch, "commit", head, "url", githubWeb + "/" + githubOrg + "/" + name,
+                            "status", "already_cloned_on_feature_branch");
+                    result.put("rootEntries", listDir(dir, dir, 80));
+                    return result;
+                }
+                ProcessRunner.Result fetchRes = git(dir, Duration.ofMinutes(5), "fetch", "--depth", "50", "origin",
+                        "+refs/heads/" + base + ":refs/remotes/origin/" + base);
+                if (!fetchRes.success() && !notBlank(branch)) {
+                    String repoDef = info.path("default_branch").asText("master");
+                    base = repoDef;
+                    requireOk(git(dir, Duration.ofMinutes(5), "fetch", "--depth", "50", "origin",
+                            "+refs/heads/" + base + ":refs/remotes/origin/" + base), "git fetch");
+                } else {
+                    requireOk(fetchRes, "git fetch");
+                }
                 requireOk(git(dir, Duration.ofMinutes(1), "checkout", "-f", "-B", base, "origin/" + base), "git checkout");
                 requireOk(git(dir, Duration.ofMinutes(1), "reset", "--hard", "origin/" + base), "git reset");
                 requireOk(git(dir, Duration.ofMinutes(1), "clean", "-fd"), "git clean");
@@ -160,30 +188,71 @@ public class WorkspaceTools {
                 result.put("baseImage", firstMatch(text, "<from>\\s*<image>\\s*([^<]+)\\s*</image>"));
                 result.put("version", firstMatch(text.replaceAll("(?s)<parent>.*?</parent>", ""),
                         "<version>\\s*([^<]+)\\s*</version>"));
+                Matcher parentMatcher = Pattern.compile("<parent>\\s*<groupId>\\s*([^<\\s]+)\\s*</groupId>\\s*<artifactId>\\s*([^<\\s]+)\\s*</artifactId>\\s*<version>\\s*([^<\\s]+)\\s*</version>", Pattern.DOTALL).matcher(text);
+                if (parentMatcher.find()) {
+                    String pGroup = parentMatcher.group(1).trim();
+                    String pArtifact = parentMatcher.group(2).trim();
+                    String pVersion = parentMatcher.group(3).trim();
+                    result.put("parentGroupId", pGroup);
+                    result.put("parentArtifactId", pArtifact);
+                    result.put("parentVersion", pVersion);
+                    result.put("isSpringBootParent", "org.springframework.boot".equalsIgnoreCase(pGroup)
+                            || pArtifact.toLowerCase(Locale.ROOT).contains("spring-boot"));
+                }
+                Matcher bomMatcher = Pattern.compile("<groupId>\\s*(org\\.springframework\\.boot)\\s*</groupId>\\s*<artifactId>\\s*(spring-boot-dependencies)\\s*</artifactId>\\s*<version>\\s*([^<\\s]+)\\s*</version>", Pattern.DOTALL).matcher(text);
+                if (bomMatcher.find()) {
+                    result.put("springBootBomVersion", bomMatcher.group(3).trim());
+                }
             }
             return result;
         });
     }
 
     @Tool(name = "workspace_createBranch", description = """
-            Create and check out a new feature branch in the cloned repository, based on the current HEAD. The name must
-            start with 'feature/', for example feature/CMDM-8449 or feature/vulnerability-fix-1.90.0. Fails if the branch
-            already exists on the remote.""")
+            Create and check out a new feature branch in the cloned repository from a base branch (default: develop).
+            The name must start with 'feature/', for example feature/CMDM-8449 or feature/vulnerability-fix-1.90.0.
+            Fails if the branch already exists on the remote or if the base branch is not found.""")
     public Map<String, Object> createBranch(
             @ToolParam(description = "Repository name") String repo,
-            @ToolParam(description = "New branch name starting with feature/") String branch) {
+            @ToolParam(description = "New branch name starting with feature/") String branch,
+            @ToolParam(required = false, description = "Base branch to branch from (default: develop)") String fromBranch) {
         return guarded(() -> {
             Path dir = repoDir(repo);
             String name = validateFeatureBranch(branch);
+            String base = notBlank(fromBranch) ? fromBranch.trim() : "develop";
+            validateRef(base);
+
+            // Fast-path: if we are already checked out on this feature branch, return immediately without network calls
+            String current = currentBranch(dir);
+            if (name.equals(current)) {
+                String head = requireOk(git(dir, Duration.ofMinutes(1), "rev-parse", "--short", "HEAD"), "git rev-parse").trim();
+                return ok("repo", repo, "branch", name, "fromBranch", base, "basedOn", head, "status", "already_on_branch");
+            }
+
             String remote = requireOk(git(dir, Duration.ofMinutes(2), "ls-remote", "--heads", "origin", name), "git ls-remote");
             if (!remote.isBlank()) {
                 throw new IllegalStateException("Branch " + name + " already exists on origin. Choose another name "
                         + "(for example add a suffix) or ask the user.");
             }
-            requireOk(git(dir, Duration.ofMinutes(1), "checkout", "-B", name), "git checkout -B");
-            return ok("repo", repo, "branch", name, "basedOn", requireOk(
+
+            // Verify base branch exists on origin
+            String remoteBase = requireOk(git(dir, Duration.ofMinutes(2), "ls-remote", "--heads", "origin", base), "git ls-remote base branch");
+            if (remoteBase.isBlank()) {
+                throw new IllegalStateException("Base branch '" + base + "' does not exist in repository " + repo
+                        + ". If develop branch is not present in the repository, STOP and ask the user which branch should be used.");
+            }
+
+            // Fetch latest base branch and branch off it
+            requireOk(git(dir, Duration.ofMinutes(5), "fetch", "--depth", "50", "origin",
+                    "+refs/heads/" + base + ":refs/remotes/origin/" + base), "git fetch base branch");
+            requireOk(git(dir, Duration.ofMinutes(1), "checkout", "-f", "-B", name, "origin/" + base), "git checkout -B");
+            return ok("repo", repo, "branch", name, "fromBranch", base, "basedOn", requireOk(
                     git(dir, Duration.ofMinutes(1), "rev-parse", "--short", "HEAD~0"), "git rev-parse").trim());
         });
+    }
+
+    public Map<String, Object> createBranch(String repo, String branch) {
+        return createBranch(repo, branch, "develop");
     }
 
     // =====================================================================================================
@@ -358,13 +427,15 @@ public class WorkspaceTools {
             Run Maven in the cloned repository. 'goals' is a space separated list from: clean, validate, compile,
             test-compile, test, package, verify, install, dependency:tree, dependency:resolve, dependency:list,
             dependency:analyze, versions:display-dependency-updates, versions:display-property-updates,
-            help:effective-pom. 'args' may contain -pl <modules>, -am, -amd, -rf <module>, -DskipTests, -Dtest=Name,
-            -DfailIfNoTests=false, -fae, -U, -o. Deploy and release are not possible. To save time build only the changed
-            modules, e.g. goals 'clean install' args '-pl bfo-processor -am'. Returns success, test summary, the
-            [ERROR] lines and the tail of the output; the full log is stored under the returned logFile.""")
+            help:effective-pom, spring-boot:run, spring-boot:start, spring-boot:stop. 'args' may contain -pl <modules>,
+            -am, -amd, -rf <module>, -DskipTests, -Dtest=Name, -DfailIfNoTests=false, -fae, -U, -o. Deploy and release
+            are not possible. When running 'spring-boot:run', it verifies application startup from logs and stops cleanly.
+            To save time build only the changed modules, e.g. goals 'clean install' args '-pl bfo-processor -am'.
+            Returns success, test summary, the [ERROR] lines and the tail of the output; the full log is stored under
+            the returned logFile.""")
     public Map<String, Object> runMaven(
             @ToolParam(description = "Repository name") String repo,
-            @ToolParam(description = "Goals, e.g. 'clean install'") String goals,
+            @ToolParam(description = "Goals, e.g. 'clean install' or 'spring-boot:run'") String goals,
             @ToolParam(required = false, description = "Extra arguments, e.g. '-pl bfo-processor -am -DskipTests'") String args,
             @ToolParam(required = false, description = "Sub-directory with the pom to build (default: repository root)") String workingDir,
             @ToolParam(required = false, description = "Timeout in minutes (default 25, max 45)") Integer timeoutMinutes) {
@@ -384,15 +455,26 @@ public class WorkspaceTools {
             try {
                 Path logs = Files.createDirectories(root().resolve("_logs"));
                 Path log = logs.resolve(repo + "-mvn-" + Instant.now().toString().replace(':', '-') + ".log");
+                Pattern earlySuccess = null;
+                Pattern earlyFailure = null;
+                if (goals != null && goals.contains("spring-boot:run")) {
+                    earlySuccess = Pattern.compile("Started [A-Za-z0-9_]+ in \\d|JVM running for|Tomcat started on port|Netty started on port|Started Application");
+                    earlyFailure = Pattern.compile("APPLICATION FAILED TO START|Application run failed|BUILD FAILURE");
+                }
                 ProcessRunner.Result result = ProcessRunner.run(command, cwd, Map.of("MAVEN_OPTS", mavenOpts()),
                         Duration.ofMinutes(minutes), Pattern.compile("^\\[(ERROR|WARNING)\\] (?!.*\\[Help)|Tests run:.*(FAIL|ERROR)|BUILD (FAILURE|SUCCESS)"),
-                        log, this::scrub);
+                        log, this::scrub, earlySuccess, earlyFailure);
                 Map<String, Object> out = new LinkedHashMap<>();
                 out.put("success", result.success());
                 out.put("exitCode", result.exitCode());
                 out.put("timedOut", result.timedOut());
                 out.put("durationSeconds", result.millis() / 1000);
                 out.put("command", "mvn " + String.join(" ", command.subList(1, command.size())));
+                if (goals != null && goals.contains("spring-boot:run")) {
+                    out.put("springBootStatus", result.success()
+                            ? "Spring Boot application started successfully. Verified from startup logs."
+                            : "Spring Boot application startup failed. Check error output.");
+                }
                 out.put("testSummary", lastMatching(result.tail(), Pattern.compile("Tests run: \\d+, Failures: \\d+, Errors: \\d+, Skipped: \\d+$")));
                 out.put("reactor", reactorSummary(result.tail()));
                 List<String> errors = result.matches().stream().filter(l -> l.startsWith("[ERROR]")).limit(60).toList();
@@ -484,14 +566,14 @@ public class WorkspaceTools {
     }
 
     @Tool(name = "workspace_createPullRequest", description = """
-            Open a pull request from the current (pushed) feature branch into the repository's default branch and return
+            Open a pull request from the current (pushed) feature branch into the base branch (default: develop) and return
             the PR link for the user to review. Never merges. The title for Jira work is '<JIRA-KEY>: <summary>'. If a PR
             for the branch already exists its link is returned.""")
     public Map<String, Object> createPullRequest(
             @ToolParam(description = "Repository name") String repo,
             @ToolParam(description = "Pull request title") String title,
             @ToolParam(description = "Pull request description (Markdown): what changed, why, how it was verified") String body,
-            @ToolParam(required = false, description = "Target branch; default = the repository's default branch") String baseBranch) {
+            @ToolParam(required = false, description = "Target branch; default = develop") String baseBranch) {
         return guarded(() -> {
             Path dir = repoDir(repo);
             String head = validateFeatureBranch(currentBranch(dir));
@@ -502,8 +584,7 @@ public class WorkspaceTools {
             if (remote.isBlank()) {
                 throw new IllegalStateException("Branch " + head + " is not on origin yet. Call workspace_commitAndPush first.");
             }
-            JsonNode repoInfo = githubGet("/repos/" + githubOrg + "/" + repo);
-            String base = notBlank(baseBranch) ? baseBranch.trim() : repoInfo.path("default_branch").asText("master");
+            String base = notBlank(baseBranch) ? baseBranch.trim() : "develop";
             if (head.equals(base)) {
                 throw new IllegalArgumentException("Head and base branch are identical");
             }

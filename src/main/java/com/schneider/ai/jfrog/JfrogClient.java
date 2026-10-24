@@ -41,6 +41,9 @@ public class JfrogClient {
     private final RestTemplate restTemplate;
     private final ObjectMapper mapper = new ObjectMapper();
 
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.schneider.ai.auth.SessionAuthService sessionAuthService;
+
     public JfrogClient(JfrogProperties props) {
         this.props = props;
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
@@ -52,8 +55,28 @@ public class JfrogClient {
         this.restTemplate = new RestTemplate(factory);
     }
 
+    public String resolveToken(String sessionId) {
+        if (sessionAuthService != null && sessionId != null && !sessionId.isBlank()) {
+            Optional<String> token = sessionAuthService.getToken(sessionId, "jfrog");
+            if (token.isPresent() && !token.get().isBlank()) {
+                return token.get();
+            }
+            Optional<String> alt = sessionAuthService.getToken(sessionId, "artifactory");
+            if (alt.isPresent() && !alt.get().isBlank()) {
+                return alt.get();
+            }
+        }
+        if (sessionAuthService != null) {
+            String fb = sessionAuthService.getFallbackTokenForService("jfrog");
+            if (fb != null && !fb.isBlank()) {
+                return fb;
+            }
+        }
+        return props.getToken() != null ? props.getToken().trim() : "";
+    }
+
     public boolean isConfigured() {
-        return props.isConfigured();
+        return !resolveToken(null).isBlank();
     }
 
     // ------------------------------------------------------------------ Artifactory (docker)
@@ -247,11 +270,12 @@ public class JfrogClient {
     }
 
     private <T> T exchange(String path, HttpMethod method, Object body, Class<T> type) {
-        if (!props.isConfigured()) {
-            throw new IllegalStateException("JFrog is not configured: set JFROG_ACCESS_TOKEN in .env.");
+        String token = resolveToken(null);
+        if (token.isBlank()) {
+            throw new IllegalStateException("JFrog is not configured: set JFROG_ACCESS_TOKEN in .env or connect via MCP modal.");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(props.getToken());
+        headers.setBearerAuth(token);
         headers.setAccept(List.of(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML,
                 MediaType.ALL));
         if (body != null) {

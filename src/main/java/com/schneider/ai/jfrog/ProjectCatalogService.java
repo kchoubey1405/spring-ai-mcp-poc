@@ -107,7 +107,7 @@ public class ProjectCatalogService {
                 continue;
             }
             String name = repo.path("name").asText();
-            repos.put(name, new RepoInfo(name, repo.path("default_branch").asText("master"),
+            repos.put(name, new RepoInfo(name, repo.path("default_branch").asText("develop"),
                     githubWeb + "/" + githubOrg + "/" + name));
         }
 

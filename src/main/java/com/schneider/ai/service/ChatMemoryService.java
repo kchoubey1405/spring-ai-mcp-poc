@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,16 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class ChatMemoryService {
 
-    private static final long SESSION_TTL_MILLIS = 5 * 60 * 1000; // 5 minutes
+    private final long sessionTtlMillis;
+
+    public ChatMemoryService(@Value("${ai.session.ttl-minutes:60}") int ttlMinutes) {
+        this.sessionTtlMillis = ttlMinutes * 60 * 1000L;
+        log.info("Chat memory session TTL set to {} minutes", ttlMinutes);
+    }
+
+    public ChatMemoryService() {
+        this(60);
+    }
     private static final int MAX_HISTORY_PER_SESSION = 20; // Keep last 20 messages (10 exchanges)
 
     /**
@@ -112,7 +122,7 @@ public class ChatMemoryService {
         if (sessionExists(sessionId)) {
             info.put("messageCount", sessionMessages.get(sessionId).size());
             info.put("lastActivity", sessionLastActivity.get(sessionId));
-            long remainingMs = SESSION_TTL_MILLIS -
+            long remainingMs = sessionTtlMillis -
                     (Instant.now().toEpochMilli() - sessionLastActivity.get(sessionId).toEpochMilli());
             info.put("expiresInSeconds", Math.max(0, remainingMs / 1000));
         }
@@ -124,7 +134,7 @@ public class ChatMemoryService {
      */
     @Scheduled(fixedRate = 60000)
     public void evictExpiredSessions() {
-        Instant cutoff = Instant.now().minusMillis(SESSION_TTL_MILLIS);
+        Instant cutoff = Instant.now().minusMillis(sessionTtlMillis);
         List<String> expiredSessions = new ArrayList<>();
 
         sessionLastActivity.forEach((sessionId, lastActivity) -> {
@@ -136,7 +146,7 @@ public class ChatMemoryService {
         expiredSessions.forEach(sessionId -> {
             sessionMessages.remove(sessionId);
             sessionLastActivity.remove(sessionId);
-            log.info("Evicted expired session: {} (inactive for 5+ minutes)", sessionId);
+            log.info("Evicted expired session: {} (inactive for {} minutes)", sessionId, sessionTtlMillis / 60000);
         });
 
         if (!expiredSessions.isEmpty()) {
@@ -152,7 +162,7 @@ public class ChatMemoryService {
                 k -> Collections.synchronizedList(new ArrayList<>()));
     }
 
-    private void touchSession(String sessionId) {
+    public void touchSession(String sessionId) {
         sessionLastActivity.put(sessionId, Instant.now());
     }
 
